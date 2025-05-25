@@ -1,9 +1,12 @@
 package frontend;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,15 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
+import java.awt.ComponentOrientation;
 
 public class ExcluirRegistro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_4;
+	private MaskFormatter mfdata;
+	private MaskFormatter mfhorario;
 
 	/**
 	 * Launch the application.
@@ -42,6 +47,20 @@ public class ExcluirRegistro extends JFrame {
 	 * Create the frame.
 	 */
 	public ExcluirRegistro() {
+		
+		try {
+		    mfdata = new MaskFormatter("##/##/####");
+		} catch (Exception e) {
+			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+		}
+		
+		try {
+		    mfhorario = new MaskFormatter("##:##");
+		} catch (Exception e) {
+			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+		}
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1243, 834));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +76,7 @@ public class ExcluirRegistro extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(44, 44, 44));
-		panel.setBounds(286, 71, 583, 639);
+		panel.setBounds(352, 153, 512, 416);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -66,71 +85,27 @@ public class ExcluirRegistro extends JFrame {
 		textField.setForeground(new Color(255, 255, 255));
 		textField.setFocusTraversalKeysEnabled(false);
 		textField.setBackground(new Color(55, 55, 55));
-		textField.setBounds(110, 135, 171, 27);
+		textField.setBounds(176, 125, 175, 27);
 		panel.add(textField);
 		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setForeground(new Color(255, 255, 255));
-		textField_1.setFocusTraversalKeysEnabled(false);
-		textField_1.setBackground(new Color(55, 55, 55));
-		textField_1.setColumns(10);
-		textField_1.setBounds(110, 189, 171, 27);
-		panel.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setForeground(new Color(255, 255, 255));
-		textField_2.setFocusTraversalKeysEnabled(false);
-		textField_2.setBackground(new Color(55, 55, 55));
-		textField_2.setColumns(10);
-		textField_2.setBounds(110, 245, 171, 27);
-		panel.add(textField_2);
-		
-		textField_4 = new JTextField();
-		textField_4.setSelectionColor(new Color(0, 128, 192));
-		textField_4.setDisabledTextColor(new Color(255, 255, 255));
-		textField_4.setForeground(new Color(255, 255, 255));
-		textField_4.setFocusTraversalKeysEnabled(false);
-		textField_4.setBackground(new Color(55, 55, 55));
-		textField_4.setBounds(110, 302, 171, 27);
-		panel.add(textField_4);
-		textField_4.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(110, 110, 46, 14);
+		lblNewLabel.setBounds(174, 100, 46, 14);
 		panel.add(lblNewLabel);
 		
 		JLabel lblData = new JLabel("Data");
 		lblData.setForeground(Color.WHITE);
 		lblData.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblData.setBounds(110, 164, 46, 14);
+		lblData.setBounds(174, 163, 46, 14);
 		panel.add(lblData);
 		
-		JLabel lblHorarioDeEntrada = new JLabel("Horario de entrada");
+		JLabel lblHorarioDeEntrada = new JLabel("Horario ");
 		lblHorarioDeEntrada.setForeground(Color.WHITE);
 		lblHorarioDeEntrada.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHorarioDeEntrada.setBounds(110, 220, 133, 14);
+		lblHorarioDeEntrada.setBounds(176, 231, 133, 14);
 		panel.add(lblHorarioDeEntrada);
-		
-		JLabel lblHorariaDeSada = new JLabel("Horaria de saída");
-		lblHorariaDeSada.setForeground(Color.WHITE);
-		lblHorariaDeSada.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHorariaDeSada.setBounds(110, 277, 106, 14);
-		panel.add(lblHorariaDeSada);
-		
-		JLabel lblMotivo = new JLabel("Motivo");
-		lblMotivo.setForeground(Color.WHITE);
-		lblMotivo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMotivo.setBounds(110, 340, 46, 14);
-		panel.add(lblMotivo);
-		
-		JTextArea textArea = new JTextArea();
-		textArea.setForeground(new Color(255, 255, 255));
-		textArea.setBackground(new Color(55, 55, 55));
-		textArea.setBounds(110, 374, 342, 149);
-		panel.add(textArea);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);
@@ -138,12 +113,12 @@ public class ExcluirRegistro extends JFrame {
 		panel_1.setBounds(0, 0, 583, 71);
 		panel.add(panel_1);
 		
-		JLabel lblSolicitarReajuste = new JLabel("Solicitar Reajuste");
+		JLabel lblSolicitarReajuste = new JLabel("Excluir Registro");
 		lblSolicitarReajuste.setPreferredSize(new Dimension(40, 40));
 		lblSolicitarReajuste.setMaximumSize(new Dimension(40, 40));
 		lblSolicitarReajuste.setForeground(Color.WHITE);
 		lblSolicitarReajuste.setFont(new Font("Tahoma", Font.BOLD, 29));
-		lblSolicitarReajuste.setBounds(154, 11, 294, 49);
+		lblSolicitarReajuste.setBounds(130, 11, 294, 49);
 		panel_1.add(lblSolicitarReajuste);
 		
 		JButton btnCancelar = new JButton("Cancelar");
@@ -153,18 +128,30 @@ public class ExcluirRegistro extends JFrame {
 		btnCancelar.setFocusPainted(false);
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setBackground(new Color(255, 102, 51));
-		btnCancelar.setBounds(411, 576, 162, 41);
+		btnCancelar.setBounds(268, 322, 162, 41);
 		panel.add(btnCancelar);
 		
-		JButton btnEnviar = new JButton("Enviar");
+		JButton btnEnviar = new JButton("Excluir");
 		btnEnviar.setForeground(new Color(255, 255, 255));
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnEnviar.setFocusTraversalKeysEnabled(false);
 		btnEnviar.setFocusPainted(false);
 		btnEnviar.setBorderPainted(false);
 		btnEnviar.setBackground(new Color(255, 102, 51));
-		btnEnviar.setBounds(239, 576, 162, 41);
+		btnEnviar.setBounds(84, 322, 162, 41);
 		panel.add(btnEnviar);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField(mfdata);
+		formattedTextField.setForeground(new Color(255, 255, 255));
+		formattedTextField.setBackground(new Color(55, 55, 55));
+		formattedTextField.setBounds(176, 193, 175, 27);
+		panel.add(formattedTextField);
+		
+		JFormattedTextField formattedTextField_1 = new JFormattedTextField(mfhorario);
+		formattedTextField_1.setForeground(Color.WHITE);
+		formattedTextField_1.setBackground(new Color(55, 55, 55));
+		formattedTextField_1.setBounds(176, 260, 175, 27);
+		panel.add(formattedTextField_1);
+		
 	}
-
 }
