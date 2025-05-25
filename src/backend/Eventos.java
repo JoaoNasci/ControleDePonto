@@ -13,7 +13,7 @@ public class Eventos extends JFrame {
 
 
     public DefaultTableModel exibirDados() {
-        String sql = " call listar_registros_ponto();"; 
+        String sql = "call listar_registros_ponto();"; 
 
         try {
         	bd = new ConecxaoBD();

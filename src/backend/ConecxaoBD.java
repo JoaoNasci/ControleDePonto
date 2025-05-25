@@ -11,7 +11,7 @@ public class ConecxaoBD {
 	private final String BDNAME = "ControleDePonto";
 	private final String URL = "jdbc:mysql://localhost:3306/" + BDNAME;
 	private final String LOGIN = "root";
-	private final String SENHA = "123456";
+	private final String SENHA = "";
 	
 
    public boolean getConnection() {

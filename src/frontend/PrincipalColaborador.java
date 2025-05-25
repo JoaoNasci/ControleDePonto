@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
+
 
 import backend.Eventos;
 
@@ -91,14 +91,7 @@ public class PrincipalColaborador extends JFrame {
 		table.setForeground(new Color(255, 255, 255));
 		scrollPane.setViewportView(table);
 		
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{new Long(12345678901L), "Joao Pedro", null, null, null, null, null},
-			},
-			new String[] {
-				"cpf", "nome", "Dia", "Horario entrada", "Intervalo", "Retorno intervalo", "Horario saida"
-			}
-		));
+		table.setModel(eventos.exibirDados());
 		table.setSelectionForeground(Color.WHITE);
 		table.setSelectionBackground(new Color(77, 77, 77));
 		table.setFocusable(false);
