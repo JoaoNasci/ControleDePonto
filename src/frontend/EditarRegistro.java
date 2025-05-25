@@ -165,5 +165,6 @@ public class EditarRegistro extends JFrame {
 		formattedTextField_2.setBackground(new Color(55, 55, 55));
 		formattedTextField_2.setBounds(176, 319, 175, 27);
 		panel.add(formattedTextField_2);
+		
 	}
 }

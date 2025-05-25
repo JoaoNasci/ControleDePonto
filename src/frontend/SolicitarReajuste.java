@@ -173,5 +173,6 @@ public class SolicitarReajuste extends JFrame {
 		formattedTextField_2.setBackground(new Color(55, 55, 55));
 		formattedTextField_2.setBounds(106, 302, 175, 27);
 		panel.add(formattedTextField_2);
+		
 	}
 }

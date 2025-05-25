@@ -152,5 +152,6 @@ public class ExcluirRegistro extends JFrame {
 		formattedTextField_1.setBackground(new Color(55, 55, 55));
 		formattedTextField_1.setBounds(176, 260, 175, 27);
 		panel.add(formattedTextField_1);
+		
 	}
 }
