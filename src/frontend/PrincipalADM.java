@@ -14,6 +14,9 @@ import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import backend.Eventos;
+
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.JLabel;
@@ -92,60 +95,19 @@ public class PrincipalADM {
 		lblNewLabel.setBounds(10, 30, 291, 28);
 		panel.add(lblNewLabel);
 		
+		Eventos eventos = new Eventos();
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 173, 1195, 480);
 		frame.getContentPane().add(scrollPane);
 		
 		table = new JTable();
+		table.setForeground(Color.WHITE);
 		table.setFocusable(false);
 		scrollPane.setViewportView(table);
 		table.setSelectionForeground(new Color(255, 255, 255));
 		table.setSelectionBackground(new Color(77, 77, 77));
 		table.setBackground(new Color(44, 44, 44));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-			},
-			new String[] {
-				"Funcionario", "Data", "Horario de entrada", "Horario de saida", "New column"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, true
-			};
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
+		table.setModel(eventos.exibirDados());
 		
 		textField = new JTextField();
 		textField.setBounds(10, 136, 173, 26);

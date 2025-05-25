@@ -1,11 +1,9 @@
 package backend;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+import java.sql.Connection;
+import java.sql.DriverManager;
 
 public class ConecxaoBD {
 	public Connection connection = null;
