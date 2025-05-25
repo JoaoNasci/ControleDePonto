@@ -1,9 +1,12 @@
 package frontend;
 
 import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,14 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
+import java.awt.ComponentOrientation;
 
 public class ExcluirRegistro extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private MaskFormatter mfdata;
+	private MaskFormatter mfhorario;
 
 	/**
 	 * Launch the application.
@@ -41,6 +47,20 @@ public class ExcluirRegistro extends JFrame {
 	 * Create the frame.
 	 */
 	public ExcluirRegistro() {
+		
+		try {
+		    mfdata = new MaskFormatter("##/##/####");
+		} catch (Exception e) {
+			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+		}
+		
+		try {
+		    mfhorario = new MaskFormatter("##:##");
+		} catch (Exception e) {
+			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+		}
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setMinimumSize(new Dimension(1243, 834));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,7 +76,7 @@ public class ExcluirRegistro extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(44, 44, 44));
-		panel.setBounds(346, 153, 512, 416);
+		panel.setBounds(352, 153, 512, 416);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -68,22 +88,6 @@ public class ExcluirRegistro extends JFrame {
 		textField.setBounds(176, 125, 175, 27);
 		panel.add(textField);
 		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setForeground(new Color(255, 255, 255));
-		textField_1.setFocusTraversalKeysEnabled(false);
-		textField_1.setBackground(new Color(55, 55, 55));
-		textField_1.setColumns(10);
-		textField_1.setBounds(176, 188, 175, 27);
-		panel.add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setForeground(new Color(255, 255, 255));
-		textField_2.setFocusTraversalKeysEnabled(false);
-		textField_2.setBackground(new Color(55, 55, 55));
-		textField_2.setColumns(10);
-		textField_2.setBounds(176, 256, 175, 27);
-		panel.add(textField_2);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -136,6 +140,17 @@ public class ExcluirRegistro extends JFrame {
 		btnEnviar.setBackground(new Color(255, 102, 51));
 		btnEnviar.setBounds(84, 322, 162, 41);
 		panel.add(btnEnviar);
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField(mfdata);
+		formattedTextField.setForeground(new Color(255, 255, 255));
+		formattedTextField.setBackground(new Color(55, 55, 55));
+		formattedTextField.setBounds(176, 193, 175, 27);
+		panel.add(formattedTextField);
+		
+		JFormattedTextField formattedTextField_1 = new JFormattedTextField(mfhorario);
+		formattedTextField_1.setForeground(Color.WHITE);
+		formattedTextField_1.setBackground(new Color(55, 55, 55));
+		formattedTextField_1.setBounds(176, 260, 175, 27);
+		panel.add(formattedTextField_1);
 	}
-
 }
