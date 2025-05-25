@@ -10,13 +10,17 @@ public class Ponto {
 	private Funcionario funcionario;
 	private LocalDate data;
 	private Time horaEntrada;
+	private Time horaEntradaIntervalo;
+	private Time horaSaidaIntervalo;
 	private Time horaSaida;
 	
-	public Ponto(Funcionario funcionario, String horaEntrada, String horaSaida) {
+	public Ponto(Funcionario funcionario, String Entrada,String intervalo, String saidaIntervalo, String Saida) {
 		this.setFuncionario(funcionario); 
 		this.setData(LocalDate.now());
-		this.setHoraEntrada(horaEntrada);
-		this.setHoraSaida(horaSaida);
+		this.setHoraEntrada(Entrada);
+		this.setHoraEntradaIntervalo(intervalo);
+		this.setHoraSaidaIntervalo(saidaIntervalo);
+		this.setHoraSaida(Saida);
 	}
 	
 	public Funcionario getFuncionario() {
@@ -44,34 +48,39 @@ public class Ponto {
 	public void setHoraSaida(String horaSaida) {
 		this.horaSaida = Time.valueOf(horaSaida);
 	}
-	
-	
-	public String Atualizacao( Funcionario funcionario, String data, String horaEntrada, String horaSaida) {
-		
-		if (funcionario == null || data == null || horaEntrada == null || horaSaida == null) {
-			return "Erro: Dados inválidos.";
-		} else {
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			this.setFuncionario(funcionario);
-			this.setData(LocalDate.parse(data, formatter));
-			this.setHoraEntrada(horaEntrada);
-			this.setHoraSaida(horaSaida);
-			return "Dados atualizados com sucesso.";
-		}
-		
+	public Time getHoraEntradaIntervalo() {
+		return horaEntradaIntervalo;
 	}
+
+	public void setHoraEntradaIntervalo(String EntradaIntervalo) {
+		this.horaEntradaIntervalo = Time.valueOf(EntradaIntervalo);
+	}
+
+	public Time getHoraSaidaIntervalo() {
+		return horaSaidaIntervalo;
+	}
+
+	public void setHoraSaidaIntervalo(String SaidaIntervalo) {
+		this.horaSaidaIntervalo = Time.valueOf(SaidaIntervalo);
+	}
+	
+	
 	
 	
 	@Override
 	public String toString() {
 		String str;
-		str  = "Numero de Cadastro: " + funcionario.getCPF() + "\n";
+		str  = "CPf : " + funcionario.getCPF() + "\n";
 		str += "Funcionario: " + funcionario.getNome() + "\n";
-		str += "Data: " + data + "\n";
-		str += "Hora de entrada: " + horaEntrada + "\n";
-		str += "Hora de saida: " + horaSaida + "\n";
+		str += "Data: " + this.getData() + "\n";
+		str += "Hora de entrada: " + this.getHoraEntrada() + "\n";
+		str += "Hora de entrada intervalo: " + this.getHoraEntradaIntervalo() + "\n";
+		str += "Hora de saida intervalo: " + this.getHoraSaidaIntervalo() + "\n";
+		str += "Hora de saida: " + this.getHoraSaida() + "\n";
 		return str;
 		
 	}
+
+	
 	
 }

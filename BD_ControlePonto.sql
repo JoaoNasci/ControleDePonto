@@ -7,7 +7,7 @@ nome varchar(100),
 Setor varchar(50),
 cargo varchar(50)
 );
-drop table funcionarios;
+
 insert into Funcionarios(cpf,nome,setor,cargo) values(12345678901,'Joao Pedro','Produção','Revisor');
 insert into Funcionarios(cpf,nome,setor,cargo) values(23652381302,'Matheus','Produção','Tecelagem');
 select * from funcionarios;
@@ -16,21 +16,26 @@ create table Registro_Ponto(
 id int auto_increment primary key,
 Dia date not null,
 hora_entrada time,
+hora_entrada_intervalo time,
+hora_saida_intervalo time,
 hora_saida time,
 funcionario_FK bigint,
 foreign key (Funcionario_FK) references funcionarios(cpf)
 );
-
-insert into Registro_Ponto(Dia,hora_entrada,hora_saida,funcionario_FK) values(current_date(),current_time(),'22:30:45',12345678901);
-insert into Registro_Ponto(Dia,hora_entrada,hora_saida,funcionario_FK) values(current_date(),current_time(),'22:30:45',23652381302);
+drop table Funcionarios;
+insert into Registro_Ponto(Dia,hora_entrada,hora_entrada_intervalo,hora_saida_intervalo,hora_saida,funcionario_FK) 
+values(current_date(),current_time(),'17:30:45','18:30:45','19:30:45',12345678901);
+insert into Registro_Ponto(Dia,hora_entrada,hora_entrada_intervalo,hora_saida_intervalo,hora_saida,funcionario_FK) 
+values(current_date(),current_time(),'17:30:45','18:30:45','19:30:45',23652381302);
 select * from Registro_Ponto;
 DELIMITER $$
 
-CREATE PROCEDURE listar_ponto_funcionario(IN cpf_func VARCHAR(14))
+CREATE PROCEDURE listar_ponto_funcionario(IN cpf_func bigint)
 BEGIN
-    SELECT f.cpf, f.nome, r.data, r.hora_entrada, r.hora_saida
+     SELECT f.cpf as "CPF", f.nome as "Nome", r.dia as "Data", r.hora_entrada as "Entrada", 
+     r.hora_entrada_intervalo as "Entrada intervalo", r.hora_saida_intervalo as "Saida intervalo", r.hora_saida as "Saida"
     FROM funcionarios f
-    INNER JOIN registros_ponto r ON f.cpf = r.cpf_funcionario
+    INNER JOIN Registro_Ponto r ON f.cpf = r.funcionario_FK
     WHERE f.cpf = cpf_func;
 END $$
 
@@ -40,12 +45,58 @@ DELIMITER $$
 
 CREATE PROCEDURE listar_registros_ponto()
 BEGIN
-    SELECT f.cpf, f.nome, r.dia, r.hora_entrada, r.hora_saida
+    SELECT f.cpf as "CPF", f.nome as "Nome", r.dia as "Data", r.hora_entrada as "Entrada",
+    r.hora_entrada_intervalo as "Entrada intervalo", r.hora_saida_intervalo as "Saida intervalo", r.hora_saida as "Saida"
     FROM funcionarios f
     Left JOIN Registro_Ponto r ON f.cpf = r.funcionario_FK;
 END $$
 
 DELIMITER ;
-DROP PROCEDURE IF EXISTS listar_registros_ponto;
 
+
+DELIMITER $$
+
+CREATE PROCEDURE excluir_func(IN es bigint)
+BEGIN
+     DELETE FROM funcionarios WHERE cpf = es;
+		DELETE FROM Registro_Ponto WHERE funcionario_FK = es;
+END $$
+
+DELIMITER ;
+
+ DELIMITER $$
+
+CREATE PROCEDURE inclusao(IN cpf_func bigint, nome_func varchar(100),
+setor_func varchar(50),cargo_func varchar(50),
+dia_func date, hora_entrada_fun time, hora_entrada_intervalo_fun time, hora_saida_intervalo_fun time, hora_saida_fun time )
+BEGIN
+    insert into Funcionarios(cpf,nome,setor,cargo) values(cpf_func,nome_func,setor_func,cargo_func);
+    insert into Registro_Ponto(Dia,hora_entrada, hora_entrada_intervalo,hora_saida_intervalo, hora_saida, funcionario_FK) 
+    values(dia_func, hora_entrada_fun, hora_entrada_intervalo_fun, hora_saida_intervalo_fun, hora_saida_fun, cpf_func);
+END $$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE alterar(IN cpf_func bigint,
+dia_func date, hora_entrada time,hora_entrada_intervalo time,hora_saida_intervalo time, hora_saida time 
+)
+BEGIN
+	
+    UPDATE Registro_Ponto SET hora_entrada = hora_entrada ,
+	hora_entrada_intervalo = hora_entrada_intervalo, hora_saida_intervalo = hora_saida_intervalo,  
+	hora_saida = hora_saida where dia = dia_func and funcionario_FK = cpf_func ;
+    
+END $$
+
+DELIMITER ;
+
+
+
+drop procedure if exists inclusao;
+
+call Excluir_Func(89452385124);
+call Inclusao(89452385124,'Joao Pedro','Produção','Supervisor', '18:30:45' );
 call listar_registros_ponto();
+call listar_ponto_funcionario(12345678901);
