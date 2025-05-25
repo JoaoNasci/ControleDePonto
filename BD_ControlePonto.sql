@@ -47,4 +47,5 @@ END $$
 
 DELIMITER ;
 DROP PROCEDURE IF EXISTS listar_registros_ponto;
+
 call listar_registros_ponto();

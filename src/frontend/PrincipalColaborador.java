@@ -88,6 +88,7 @@ public class PrincipalColaborador extends JFrame {
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		table.setForeground(new Color(255, 255, 255));
 		scrollPane.setViewportView(table);
 		
 		table.setModel(eventos.exibirDados());
