@@ -5,13 +5,14 @@ public class Funcionario {
 	private String Nome;
 	private String Setor;
 	private String Cargo;
-	private Turno Turno;
+	
 	 
-	public Funcionario(String nome, String setor, String cargo, Turno turno) {
-		this.Nome = nome;
-		this.Setor = setor;
-		this.Cargo = cargo;
-		this.Turno = turno;
+	public Funcionario(int cpf,String nome, String setor, String cargo) {
+		this.setCPF(cpf);
+		this.setNome(nome);
+		this.setSetor(setor);
+		this.setCargo(cargo);
+		
 	}
 	
 	public int getCPF() {
@@ -38,12 +39,7 @@ public class Funcionario {
 	public void setCargo(String cargo) {
 		this.Cargo = cargo;
 	}
-	public Turno getTurno() {
-		return this.Turno;
-	}
-	public void setTurno(Turno turno) {
-		this.Turno = turno;
-	}
+	
 	
 @Override
 public String toString() {
@@ -52,7 +48,6 @@ public String toString() {
 	str += "Nome: " + this.getNome() + "\n";
 	str += "Setor: " + this.getSetor() + "\n";
 	str += "Cargo: " + this.getCargo() + "\n";
-	str += "Turno: " + this.getTurno() + "\n";
 	return str;
 }
 }

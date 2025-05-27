@@ -1,16 +1,19 @@
 package backend;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Eventos extends JFrame {
     private ConecxaoBD bd;
-
+    private UsuarioDAO usuarioDAO;
 
     public DefaultTableModel exibirDados() {
         String sql = "call listar_registros_ponto();"; 
@@ -60,7 +63,27 @@ public class Eventos extends JFrame {
         }
     }
 
-   
+   public MouseAdapter mouseAdapter(JTextField cpf, JTextField data, JTextField entrada, JTextField entradaIntevalo, JTextField saidaIntervalo, JTextField saida) {
+		
+		return new MouseAdapter () {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!bd.getConnection()) {
+					System.out.println("Falha na conexão.");
+				}
+				Ponto ponto = new Ponto();
+				usuarioDAO = new UsuarioDAO();
+				usuarioDAO.Alterar(cpf.getText(), data.getText(), entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+				ponto.alterarPonto(cpf.getText(), entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+				
+				
+
+				
+			}
+		};
+		
+	}
+		
 
 
 }
