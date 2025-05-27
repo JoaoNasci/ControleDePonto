@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.MaskFormatter;
 
+import backend.Eventos;
+
 import java.awt.Dimension;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -15,12 +17,16 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+
 
 public class SolicitarReajuste extends JFrame {
 
 	
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField nomeTextField;
 	private MaskFormatter mfdata;
 	private MaskFormatter mfhorario;
 
@@ -73,18 +79,18 @@ public class SolicitarReajuste extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(44, 44, 44));
-		panel.setBounds(286, 71, 583, 639);
+		panel.setBounds(285, 74, 583, 639);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setSelectionColor(new Color(0, 128, 192));
-		textField.setForeground(new Color(255, 255, 255));
-		textField.setFocusTraversalKeysEnabled(false);
-		textField.setBackground(new Color(55, 55, 55));
-		textField.setBounds(106, 135, 175, 27);
-		panel.add(textField);
-		textField.setColumns(10);
+		nomeTextField = new JTextField();
+		nomeTextField.setSelectionColor(new Color(0, 128, 192));
+		nomeTextField.setForeground(new Color(255, 255, 255));
+		nomeTextField.setFocusTraversalKeysEnabled(false);
+		nomeTextField.setBackground(new Color(55, 55, 55));
+		nomeTextField.setBounds(106, 135, 175, 27);
+		panel.add(nomeTextField);
+		nomeTextField.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Nome");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 13));
@@ -107,19 +113,19 @@ public class SolicitarReajuste extends JFrame {
 		JLabel lblHorariaDeSada = new JLabel("Horaria de saída");
 		lblHorariaDeSada.setForeground(Color.WHITE);
 		lblHorariaDeSada.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHorariaDeSada.setBounds(110, 277, 106, 14);
+		lblHorariaDeSada.setBounds(106, 333, 147, 14);
 		panel.add(lblHorariaDeSada);
 		
 		JLabel lblMotivo = new JLabel("Motivo");
 		lblMotivo.setForeground(Color.WHITE);
 		lblMotivo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMotivo.setBounds(110, 340, 46, 14);
+		lblMotivo.setBounds(110, 394, 46, 14);
 		panel.add(lblMotivo);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setBackground(new Color(55, 55, 55));
-		textArea.setBounds(110, 374, 342, 149);
+		textArea.setBounds(106, 418, 342, 117);
 		panel.add(textArea);
 		
 		JPanel panel_1 = new JPanel();
@@ -147,6 +153,8 @@ public class SolicitarReajuste extends JFrame {
 		panel.add(btnCancelar);
 		
 		JButton btnEnviar = new JButton("Enviar");
+		Eventos eventos = new Eventos();
+		
 		btnEnviar.setForeground(new Color(255, 255, 255));
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnEnviar.setFocusTraversalKeysEnabled(false);
@@ -156,23 +164,43 @@ public class SolicitarReajuste extends JFrame {
 		btnEnviar.setBounds(239, 576, 162, 41);
 		panel.add(btnEnviar);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField(mfdata);
-		formattedTextField.setForeground(Color.WHITE);
-		formattedTextField.setBackground(new Color(55, 55, 55));
-		formattedTextField.setBounds(106, 189, 175, 27);
-		panel.add(formattedTextField);
+		JFormattedTextField dataFormattedTextField = new JFormattedTextField(mfdata);
+		dataFormattedTextField.setForeground(Color.WHITE);
+		dataFormattedTextField.setBackground(new Color(55, 55, 55));
+		dataFormattedTextField.setBounds(106, 189, 175, 27);
+		panel.add(dataFormattedTextField);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField(mfhorario);
-		formattedTextField_1.setForeground(Color.WHITE);
-		formattedTextField_1.setBackground(new Color(55, 55, 55));
-		formattedTextField_1.setBounds(106, 245, 175, 27);
-		panel.add(formattedTextField_1);
+		JFormattedTextField entradaFormattedTextField_1 = new JFormattedTextField(mfhorario);
+		entradaFormattedTextField_1.setForeground(Color.WHITE);
+		entradaFormattedTextField_1.setBackground(new Color(55, 55, 55));
+		entradaFormattedTextField_1.setBounds(106, 245, 175, 27);
+		panel.add(entradaFormattedTextField_1);
 		
-		JFormattedTextField formattedTextField_2 = new JFormattedTextField(mfhorario);
-		formattedTextField_2.setForeground(Color.WHITE);
-		formattedTextField_2.setBackground(new Color(55, 55, 55));
-		formattedTextField_2.setBounds(106, 302, 175, 27);
-		panel.add(formattedTextField_2);
+		JFormattedTextField entradaInterFormattedTextField_2 = new JFormattedTextField(mfhorario);
+		entradaInterFormattedTextField_2.setForeground(Color.WHITE);
+		entradaInterFormattedTextField_2.setBackground(new Color(55, 55, 55));
+		entradaInterFormattedTextField_2.setBounds(106, 296, 175, 27);
+		panel.add(entradaInterFormattedTextField_2);
+		
+		JFormattedTextField saidaFormattedTextField_1_1 = new JFormattedTextField(mfhorario);
+		saidaFormattedTextField_1_1.setForeground(Color.WHITE);
+		saidaFormattedTextField_1_1.setBackground(new Color(55, 55, 55));
+		saidaFormattedTextField_1_1.setBounds(106, 357, 175, 27);
+		panel.add(saidaFormattedTextField_1_1);
+		
+		JFormattedTextField saidaInterFormattedTextField_2_1 = new JFormattedTextField(mfhorario);
+		saidaInterFormattedTextField_2_1.setForeground(Color.WHITE);
+		saidaInterFormattedTextField_2_1.setBackground(new Color(55, 55, 55));
+		saidaInterFormattedTextField_2_1.setBounds(291, 296, 175, 27);
+		panel.add(saidaInterFormattedTextField_2_1);
+		
+		JLabel lblHorarioDeIntervalo = new JLabel("Horario de Intervalo");
+		lblHorarioDeIntervalo.setForeground(Color.WHITE);
+		lblHorarioDeIntervalo.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblHorarioDeIntervalo.setBounds(106, 272, 147, 14);
+		panel.add(lblHorarioDeIntervalo);
+		
+		btnEnviar.addMouseListener(eventos.mouseAdapter(nomeTextField, dataFormattedTextField, entradaFormattedTextField_1, entradaInterFormattedTextField_2, saidaInterFormattedTextField_2_1, saidaFormattedTextField_1_1));
 		
 	}
 }

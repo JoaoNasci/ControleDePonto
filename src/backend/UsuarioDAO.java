@@ -1,6 +1,7 @@
 package backend;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -16,7 +17,6 @@ public class UsuarioDAO {
 		   stmt.setString(1, funcionario.getNome());
 		   stmt.setInt(2, funcionario.getCPF());
 		   stmt.setString(3, funcionario.getCargo());
-		   stmt.setString(4, funcionario.getTurno().name());
 		   stmt.executeUpdate();
 		   System.out.println("Funcionário inserido com sucesso!");
 		   stmt.close();
@@ -70,18 +70,18 @@ public class UsuarioDAO {
 	   }
    }
    
-   public void Alterar(Ponto ponto, Funcionario funcionario) {
+   public void Alterar(String cpf, String data, String horaEntrada, String horaEntradaIntervalo, String horaSaidaIntervalo, String horaSaida) {
 	   String sql = "call alterar(?,?,?,?,?,? )";
 	   ConecxaoBD bd = new ConecxaoBD();
 	   if(bd.getConnection()) {
 	   try {
 		   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-		   stmt.setInt(1, funcionario.getCPF());
-		   stmt.setDate(2, Date.valueOf(ponto.getData()));
-		   stmt.setTime(3, ponto.getHoraEntrada());
-		   stmt.setTime(4, ponto.getHoraEntradaIntervalo());
-		   stmt.setTime(5, ponto.getHoraSaidaIntervalo());
-		   stmt.setTime(6, ponto.getHoraSaida());
+		   stmt.setInt(1, Integer.parseInt(cpf));
+		   stmt.setDate(2, Date.valueOf(data));
+		   stmt.setTime(3, Time.valueOf(horaEntrada));
+		   stmt.setTime(4, Time.valueOf(horaEntradaIntervalo));
+		   stmt.setTime(5, Time.valueOf(horaSaidaIntervalo));
+		   stmt.setTime(6, Time.valueOf(horaSaida));
 		   
 		   stmt.executeUpdate();
 		   System.out.println("Funcionário alterado com sucesso!");

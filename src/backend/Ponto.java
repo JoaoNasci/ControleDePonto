@@ -2,7 +2,7 @@ package backend;
 
 import java.sql.Time;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+
 
 
 public class Ponto {
@@ -13,6 +13,8 @@ public class Ponto {
 	private Time horaEntradaIntervalo;
 	private Time horaSaidaIntervalo;
 	private Time horaSaida;
+	
+	public Ponto() {}
 	
 	public Ponto(Funcionario funcionario, String Entrada,String intervalo, String saidaIntervalo, String Saida) {
 		this.setFuncionario(funcionario); 
@@ -64,7 +66,21 @@ public class Ponto {
 		this.horaSaidaIntervalo = Time.valueOf(SaidaIntervalo);
 	}
 	
-	
+	public void alterarPonto(String cpf,String Entrada, String intervalo, String saidaIntervalo, String Saida) {
+		
+		if (this.funcionario.getCPF() != Integer.parseInt(cpf)) {
+		
+			System.out.println("CPF do funcionário não corresponde ao ponto registrado.");
+			
+		}else {
+			this.setHoraEntrada(Entrada);
+			this.setHoraEntradaIntervalo(intervalo);
+			this.setHoraSaidaIntervalo(saidaIntervalo);
+			this.setHoraSaida(Saida);
+			System.out.println("Ponto alterado com sucesso!");
+		}
+		
+	}
 	
 	
 	@Override
