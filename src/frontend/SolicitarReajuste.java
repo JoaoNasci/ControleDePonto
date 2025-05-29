@@ -53,7 +53,7 @@ public class SolicitarReajuste extends JFrame {
 		
 		
 		try {
-		    mfdata = new MaskFormatter("##/##/####");
+		    mfdata = new MaskFormatter("##/##/#####");
 		} catch (Exception e) {
 			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
 		}
@@ -200,7 +200,10 @@ public class SolicitarReajuste extends JFrame {
 		lblHorarioDeIntervalo.setBounds(106, 272, 147, 14);
 		panel.add(lblHorarioDeIntervalo);
 		
+		
+		
 		btnEnviar.addMouseListener(eventos.mouseAdapter(nomeTextField, dataFormattedTextField, entradaFormattedTextField_1, entradaInterFormattedTextField_2, saidaInterFormattedTextField_2_1, saidaFormattedTextField_1_1));
+		
 		
 	}
 }
