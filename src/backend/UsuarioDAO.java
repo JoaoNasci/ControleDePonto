@@ -70,13 +70,13 @@ public class UsuarioDAO {
 	   }
    }
    
-   public void Alterar(String cpf, String data, String horaEntrada, String horaEntradaIntervalo, String horaSaidaIntervalo, String horaSaida) {
+   public void Alterar(long cpf, String data, String horaEntrada, String horaEntradaIntervalo, String horaSaidaIntervalo, String horaSaida) {
 	   String sql = "call alterar(?,?,?,?,?,? )";
 	   ConecxaoBD bd = new ConecxaoBD();
 	   if(bd.getConnection()) {
 	   try {
 		   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-		   stmt.setInt(1, Integer.parseInt(cpf));
+		   stmt.setLong(1, cpf);
 		   stmt.setDate(2, Date.valueOf(data));
 		   stmt.setTime(3, Time.valueOf(horaEntrada));
 		   stmt.setTime(4, Time.valueOf(horaEntradaIntervalo));

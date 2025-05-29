@@ -2,17 +2,19 @@ package backend;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Eventos extends JFrame {
-    private ConecxaoBD bd;
+    private ConecxaoBD bd = new ConecxaoBD();
     private UsuarioDAO usuarioDAO;
 
     public DefaultTableModel exibirDados() {
@@ -20,11 +22,13 @@ public class Eventos extends JFrame {
 
         try {
         	bd = new ConecxaoBD();
-        	bd.getConnection();
             if (!this.bd.getConnection()) {
             	
                 System.out.println("Falha na conexão.");
                 
+            } else {
+            	bd.getConnection();
+				System.out.println("Conexão estabelecida com sucesso.");
             }
 
             PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
@@ -55,7 +59,6 @@ public class Eventos extends JFrame {
             bd.closeConnection();
             return model;
 
-
         } catch (SQLException e) {
         	System.out.println("Erro ao executar a consulta: " + e.getMessage());
             
@@ -71,12 +74,33 @@ public class Eventos extends JFrame {
 				if(!bd.getConnection()) {
 					System.out.println("Falha na conexão.");
 				}
-				Ponto ponto = new Ponto();
-				usuarioDAO = new UsuarioDAO();
-				usuarioDAO.Alterar(cpf.getText(), data.getText(), entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
-				ponto.alterarPonto(cpf.getText(), entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+				else {
+					bd.getConnection();
+					System.out.println("Conexão estabelecida com sucesso.");
+					String texto = cpf.getText();
+
+					if (texto != null && !texto.trim().isEmpty()) {
+					    try {
+					        long valor = Long.parseLong(texto);
+					        SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy/MM/dd");
+					        String dataFormatada = formatoSQL.format(formatoSQL.parse(data.getText()));
+					        Ponto ponto = new Ponto();
+							usuarioDAO = new UsuarioDAO();
+							usuarioDAO.Alterar(valor, dataFormatada, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+							ponto.alterarPonto(valor, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+							
+					        
+					    } catch (NumberFormatException  et) {
+					        System.out.println("Erro: valor inválido! Não é um número: " + texto);
+					    } catch (Exception ex) {
+					        System.out.println("Erro ao formatar data: " + ex.getMessage());
+					    }
+					} else {
+					    System.out.println("Erro: o campo está vazio!");
+					}
 				
 				
+				}
 
 				
 			}
