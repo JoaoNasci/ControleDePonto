@@ -17,6 +17,11 @@
 
 #Senha - Campo para o usúario digitar sua senha.
 
+#Eventos:
+
+#autenticarUsuario - evento para que possa ser comparado o email e senha que o usúario digitar com os cadastrados no banco para que possa ser feita a autenticação do usúario, e através do nivel 
+de privelégio redirecionar o usúario para sua respectiva tela sendo elas PrincipalADM ou PrincipalColaborador.
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #2-Tela PrincipalADM
@@ -29,7 +34,15 @@
 
 #Campo e botão de filtro - Filtra solicitações de ajuste de registros de pontos dos colaborados na tabela .
 
-#Editar e excluir registros - Botões para editar e excluir registros de pontos dos colabores.
+#Eventos:
+
+#exibirDados - evento para mostrar todas as solicitações de ajuste de registro de ponto em aberto dos colaboradores.
+
+#atualizarDados - evento para atualizar os dados da tabela para  mostrar os dados mais recentes.
+
+#pesquisarDados - evento para filtrar solicitações de acordo com o filtro que o usúario escolher exemplo filtrar por nome ou número da solicitação.
+
+#carregarDadosSolicitacao - evento que quando o Administrador clicar na solicitação na tela seja redirecionado para a tela de ExcluirRegistro ou EditarRegistro de acordo com o tipo de solicitação feita pelo colaborador.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -39,9 +52,17 @@
 
 #Botões:
 
-#Solicitar reajuste - Botão para o colaborador abrir uma nova solicitação de ajuste de ponto.
+#SolicitarReajuste - Botão para que o colaborador seja redirecionado para a tela de SolicitarReajuste.
 
 #Campo e botão de filtro - Filtra as solicitações do colaborador que estão em aberto ou encerradas na tabela .
+
+#Eventos:
+
+#exibirDados - evento para mostrar todas as solicitações de resgistro de ponto do colaborador que estão em aberto ou encerrados.
+
+#atualizarDados - evento para atualizar os dados da tabela para  mostrar os dados mais recentes.
+
+#pesquisarDados - evento para que o colaborador possa filtrar suas solicitações de acordo com o filtro que o ele selecionar como número da solicitação ou status.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -65,6 +86,10 @@
 
 #Motivo - Campo para o usúario descrever o motivo da solicitação de reajuste.
 
+#Eventos:
+
+#registrarSolicitacao - evento para pegar os dados preenchidos nos campos pelo usúario para registrar uma nova solicitação de ajuste de ponto no sistema .
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #5-Tela ExcluirRegistro
@@ -85,6 +110,9 @@
 
 #Horário - Campo para o usúario selecionar o registro a ser excluido.
 
+#Eventos:
+
+#excluirRegistro - evento para excluir um Registro de ponto de acordo com a solicitação feita pelo usúario  .
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -108,6 +136,8 @@
 
 #Horário novo - campo para o administrador digitar o novo horario que sera atualizado.
 
+#Eventos:
+
+#editarRegistro - evento para editar um Registro de ponto de acordo com a solicitação feita pelo usúario  .
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
