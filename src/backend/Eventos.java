@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -84,25 +85,42 @@ public class Eventos extends JFrame {
 					if (texto != null && !texto.trim().isEmpty()) {
 					    try {
 					        long valor = Long.parseLong(texto);
+					        String horaEntrada = entrada.getText().trim();
+					        String horaEntradaIntervalo = entradaIntevalo.getText().trim();
+					        String horaSaidaIntervalo = saidaIntervalo.getText().trim();
+					        String horaSaida = saida.getText().trim();
+					        if (horaEntrada.isEmpty() || horaEntradaIntervalo.isEmpty() || horaSaidaIntervalo.isEmpty() || horaSaida.isEmpty()) {
+					            System.out.println("Erro: um ou mais campos de horário estão vazios!");
+					            
+					        }else if (horaEntrada.matches("\\d{2}:\\d{2}") && horaEntradaIntervalo.matches("\\d{2}:\\d{2}") &&
+					        		horaSaidaIntervalo.matches("\\d{2}:\\d{2}") && horaSaida.matches("\\d{2}:\\d{2}")) {
+					        		horaEntrada += ":00";
+					        		horaEntradaIntervalo += ":00";
+					        		horaSaidaIntervalo += ":00";
+					        		horaSaida += ":00";
+					        	
+					        } else {
+					            System.out.println("Erro: um ou mais campos de horário estão no formato incorreto! Use o formato HH:mm.");
+					            
+					        	
+					        }
 					        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 					        formato.setLenient(false);
-					        SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy/MM/dd");
+					 	   	SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy-MM-dd");
 					        
-					        Date dataFormatada = formato.parse(data.getText().trim());
-					        String dataFormatadaSQL = formatoSQL.format(dataFormatada);
-					        
-					        System.out.println("Valor formatado: " + valor);
-					        System.out.println("Data formatada: " + dataFormatada);
+					 	   	Date dataFormatada = formato.parse(data.getText().trim());
+					 	   	String dataSQL = formatoSQL.format(dataFormatada);
+					 
+					       
 					        Ponto ponto = new Ponto();
 							usuarioDAO = new UsuarioDAO();
-							usuarioDAO.Alterar(valor, dataFormatadaSQL, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
-							ponto.alterarPonto(valor, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+							usuarioDAO.Alterar(valor, dataSQL, horaEntrada , horaEntradaIntervalo, horaSaidaIntervalo, horaSaida);
 							
-					        
-					    } catch (NumberFormatException  et) {
+					        System.out.println("Dados recebidos: " + valor + ", " + dataSQL + ", " + horaEntrada + ", " + horaEntradaIntervalo + ", " + horaSaidaIntervalo + ", " + horaSaida);
+							
+						
+					    } catch (NumberFormatException | ParseException  et) {
 					        System.out.println("Erro: valor inválido! Não é um número: " + texto);
-					    } catch (Exception ex) {
-					        System.out.println("Erro ao formatar data: " + ex.getMessage());
 					    }
 					} else {
 					    System.out.println("Erro: o campo está vazio!");

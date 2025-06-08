@@ -30,6 +30,19 @@ insert into Registro_Ponto(Dia,Hora_entrada,Entrada_intervalo,Saida_intervalo,Ho
 values(current_date(),current_time(),'17:30:45','18:30:45','19:30:45',23652381302);
 select * from Registro_Ponto;
 
+
+create table solicitacao(
+Id int auto_increment not null primary key,
+Funcionario bigint not null,
+Ponto int not null,
+Motivo varchar(150) not null,
+foreign key(Funcionario) references funcionarios(CPF),
+foreign key(Ponto) references registro_ponto(id)
+);
+
+select * from solicitacao;
+insert into solicitacao(Funcionario,Ponto,Motivo) values(12345678901,1,"Hora errada");
+
 DELIMITER $$
 
 CREATE PROCEDURE listar_ponto_funcionario(IN cpf_func bigint)
@@ -82,7 +95,7 @@ DELIMITER ;
 DELIMITER $$
 
 CREATE PROCEDURE alterar(IN cpf_func bigint,
-dia_func date, hora_entrada time,hora_entrada_intervalo time,hora_saida_intervalo time, hora_saida time 
+dia_func date, hora_entrada time, hora_entrada_intervalo time, hora_saida_intervalo time, hora_saida time 
 )
 BEGIN
 	
@@ -95,11 +108,11 @@ END $$
 DELIMITER ;
 
 
-
-drop procedure if exists inclusao;
+drop procedure if exists alterar;
 
 call alterar();
 call Excluir_Func(89452385124);
 call Inclusao(89452385124,'Joao Pedro','Produção','Supervisor', '18:30:45' );
 call listar_registros_ponto();
 call listar_ponto_funcionario(12345678901);
+call alterar(12345678901,"2025-05-25","05:00:00","09:10:00","10:10:00","13:30:00");

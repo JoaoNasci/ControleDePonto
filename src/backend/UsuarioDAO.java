@@ -1,10 +1,9 @@
 package backend;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
+import java.sql.Time;
 
 public class UsuarioDAO {
 	
@@ -71,7 +70,8 @@ public class UsuarioDAO {
    }
    
    public void Alterar(long cpf, String data, String horaEntrada, String horaEntradaIntervalo, String horaSaidaIntervalo, String horaSaida) {
-	   String sql = "call alterar(?,?,?,?,?,? )";
+	   String sql = "call alterar(?,?,?,?,?,?)";
+	 
 	   ConecxaoBD bd = new ConecxaoBD();
 	   if(bd.getConnection()) {
 	   try {

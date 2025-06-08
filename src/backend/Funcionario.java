@@ -40,6 +40,7 @@ public class Funcionario {
 		this.Cargo = cargo;
 	}
 	
+
 	
 @Override
 public String toString() {
