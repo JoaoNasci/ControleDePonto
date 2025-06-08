@@ -151,6 +151,11 @@ public class SolicitarReajuste extends JFrame {
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setBackground(new Color(255, 102, 51));
 		btnCancelar.setBounds(409, 511, 162, 41);
+		btnCancelar.addActionListener(e -> {
+			PrincipalColaborador principalColaborador = new PrincipalColaborador();
+			principalColaborador.setVisible(true);
+			dispose();
+		});
 		panel.add(btnCancelar);
 		
 		JButton btnEnviar = new JButton("Enviar");
