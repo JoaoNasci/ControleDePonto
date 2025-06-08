@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class PrincipalADM {
 
@@ -112,7 +113,7 @@ public class PrincipalADM {
 		btnPesquisar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnPesquisar.setBorderPainted(false);
 		btnPesquisar.setBackground(new Color(255, 102, 51));
-		btnPesquisar.setBounds(196, 136, 110, 26);
+		btnPesquisar.setBounds(344, 136, 110, 26);
 		frame.getContentPane().add(btnPesquisar);
 		
 		JButton btnAtualizar = new JButton("Atualizar");
@@ -123,6 +124,10 @@ public class PrincipalADM {
 		btnAtualizar.setBackground(new Color(255, 102, 51));
 		btnAtualizar.setBounds(1075, 136, 110, 26);
 		frame.getContentPane().add(btnAtualizar);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(193, 136, 141, 26);
+		frame.getContentPane().add(comboBox);
 		table.getColumnModel().getColumn(2).setMinWidth(16);
 	}
 }

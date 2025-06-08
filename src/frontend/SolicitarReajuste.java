@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
+import javax.swing.JComboBox;
 
 
 
@@ -85,7 +86,7 @@ public class SolicitarReajuste extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(44, 44, 44));
-		panel.setBounds(285, 74, 583, 639);
+		panel.setBounds(285, 74, 583, 576);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -110,28 +111,22 @@ public class SolicitarReajuste extends JFrame {
 		lblData.setBounds(110, 164, 46, 14);
 		panel.add(lblData);
 		
-		JLabel lblHorarioDeEntrada = new JLabel("Horario de entrada");
+		JLabel lblHorarioDeEntrada = new JLabel("Horario ");
 		lblHorarioDeEntrada.setForeground(Color.WHITE);
 		lblHorarioDeEntrada.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblHorarioDeEntrada.setBounds(110, 220, 133, 14);
 		panel.add(lblHorarioDeEntrada);
 		
-		JLabel lblHorariaDeSada = new JLabel("Horaria de saída");
-		lblHorariaDeSada.setForeground(Color.WHITE);
-		lblHorariaDeSada.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHorariaDeSada.setBounds(106, 333, 147, 14);
-		panel.add(lblHorariaDeSada);
-		
 		JLabel lblMotivo = new JLabel("Motivo");
 		lblMotivo.setForeground(Color.WHITE);
 		lblMotivo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblMotivo.setBounds(110, 394, 46, 14);
+		lblMotivo.setBounds(110, 283, 46, 14);
 		panel.add(lblMotivo);
 		
 		JTextArea textArea = new JTextArea();
 		textArea.setForeground(new Color(255, 255, 255));
 		textArea.setBackground(new Color(55, 55, 55));
-		textArea.setBounds(106, 418, 342, 117);
+		textArea.setBounds(106, 308, 342, 117);
 		panel.add(textArea);
 		
 		JPanel panel_1 = new JPanel();
@@ -155,7 +150,7 @@ public class SolicitarReajuste extends JFrame {
 		btnCancelar.setFocusPainted(false);
 		btnCancelar.setBorderPainted(false);
 		btnCancelar.setBackground(new Color(255, 102, 51));
-		btnCancelar.setBounds(411, 576, 162, 41);
+		btnCancelar.setBounds(409, 511, 162, 41);
 		panel.add(btnCancelar);
 		
 		JButton btnEnviar = new JButton("Enviar");
@@ -167,7 +162,7 @@ public class SolicitarReajuste extends JFrame {
 		btnEnviar.setFocusPainted(false);
 		btnEnviar.setBorderPainted(false);
 		btnEnviar.setBackground(new Color(255, 102, 51));
-		btnEnviar.setBounds(239, 576, 162, 41);
+		btnEnviar.setBounds(237, 511, 162, 41);
 		panel.add(btnEnviar);
 		
 		JFormattedTextField dataFormattedTextField = new JFormattedTextField(mfdata);
@@ -177,39 +172,10 @@ public class SolicitarReajuste extends JFrame {
 		dataFormattedTextField.setBounds(106, 189, 175, 27);
 		panel.add(dataFormattedTextField);
 		
-		JFormattedTextField entradaFormattedTextField_1 = new JFormattedTextField(mfhorario);
-		entradaFormattedTextField_1.setForeground(Color.WHITE);
-		entradaFormattedTextField_1.setBackground(new Color(55, 55, 55));
-		entradaFormattedTextField_1.setBounds(106, 245, 175, 27);
-		panel.add(entradaFormattedTextField_1);
-		
-		JFormattedTextField entradaInterFormattedTextField_2 = new JFormattedTextField(mfhorario);
-		entradaInterFormattedTextField_2.setForeground(Color.WHITE);
-		entradaInterFormattedTextField_2.setBackground(new Color(55, 55, 55));
-		entradaInterFormattedTextField_2.setBounds(106, 296, 175, 27);
-		panel.add(entradaInterFormattedTextField_2);
-		
-		JFormattedTextField saidaFormattedTextField_1_1 = new JFormattedTextField(mfhorario);
-		saidaFormattedTextField_1_1.setForeground(Color.WHITE);
-		saidaFormattedTextField_1_1.setBackground(new Color(55, 55, 55));
-		saidaFormattedTextField_1_1.setBounds(106, 357, 175, 27);
-		panel.add(saidaFormattedTextField_1_1);
-		
-		JFormattedTextField saidaInterFormattedTextField_2_1 = new JFormattedTextField(mfhorario);
-		saidaInterFormattedTextField_2_1.setForeground(Color.WHITE);
-		saidaInterFormattedTextField_2_1.setBackground(new Color(55, 55, 55));
-		saidaInterFormattedTextField_2_1.setBounds(291, 296, 175, 27);
-		panel.add(saidaInterFormattedTextField_2_1);
-		
-		JLabel lblHorarioDeIntervalo = new JLabel("Horario de Intervalo");
-		lblHorarioDeIntervalo.setForeground(Color.WHITE);
-		lblHorarioDeIntervalo.setFont(new Font("Tahoma", Font.BOLD, 13));
-		lblHorarioDeIntervalo.setBounds(106, 272, 147, 14);
-		panel.add(lblHorarioDeIntervalo);
-		
-		
-		
-		btnEnviar.addMouseListener(eventos.mouseAdapter(nomeTextField, dataFormattedTextField, entradaFormattedTextField_1, entradaInterFormattedTextField_2, saidaInterFormattedTextField_2_1, saidaFormattedTextField_1_1));
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBackground(new Color(55, 55, 55));
+		comboBox.setBounds(106, 250, 175, 22);
+		panel.add(comboBox);
 		
 		
 	}
