@@ -14,11 +14,12 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 
 
@@ -53,15 +54,20 @@ public class SolicitarReajuste extends JFrame {
 		
 		
 		try {
-		    mfdata = new MaskFormatter("##/##/#####");
+	
+		    mfdata = new MaskFormatter("##/##/####");
+		    mfdata.setPlaceholderCharacter(' ');
+		    mfdata.setAllowsInvalid(false);
+		    mfdata.setCommitsOnValidEdit(true);
+		    
 		} catch (Exception e) {
-			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+			System.out.println("Erro ao criar máscara de data: " + e.getMessage());
 		}
 		
 		try {
 		    mfhorario = new MaskFormatter("##:##");
 		} catch (Exception e) {
-			System.out.println("Erro ao criar máscara de CPF: " + e.getMessage());
+			System.out.println("Erro ao criar máscara de hora: " + e.getMessage());
 		}
 		
 		
@@ -165,6 +171,7 @@ public class SolicitarReajuste extends JFrame {
 		panel.add(btnEnviar);
 		
 		JFormattedTextField dataFormattedTextField = new JFormattedTextField(mfdata);
+		dataFormattedTextField.setText(" / / ");
 		dataFormattedTextField.setForeground(Color.WHITE);
 		dataFormattedTextField.setBackground(new Color(55, 55, 55));
 		dataFormattedTextField.setBounds(106, 189, 175, 27);
