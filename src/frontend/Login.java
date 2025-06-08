@@ -19,7 +19,7 @@ import java.awt.TextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 
-public class Login {
+public class Login  extends JFrame {
 
 	private JFrame frmLoginNoSistema;
 	private JPasswordField passwordField;
@@ -96,6 +96,25 @@ public class Login {
 		btnNewButton.setBounds(86, 274, 174, 39);
 		panel.add(btnNewButton);
 		btnNewButton.setBackground(new Color(255, 102, 51));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String usuario = textField.getText();
+				String senha = new String(passwordField.getPassword());
+				
+				if (usuario.equals("admin") && senha.equals("admin")) {
+					PrincipalADM principalADM = new PrincipalADM();
+					principalADM.setVisible(true);
+					frmLoginNoSistema.dispose();
+				} else if (usuario.equals("colaborador") && senha.equals("colaborador")) {
+					PrincipalColaborador principalColaborador = new PrincipalColaborador();
+					principalColaborador.setVisible(true);
+					frmLoginNoSistema.dispose();
+				} else {
+					System.out.println("Usuário ou senha inválidos.");
+				}
+			}
+		});
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(59, 59, 59));

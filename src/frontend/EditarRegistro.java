@@ -134,6 +134,7 @@ public class EditarRegistro extends JFrame {
 		btnCancelar.setBounds(277, 381, 162, 41);
 		panel.add(btnCancelar);
 		
+		
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
