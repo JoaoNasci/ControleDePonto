@@ -3,13 +3,16 @@ use ControleDePonto;
 
 create table Funcionarios(
 CPF bigint(11) unique not null primary key,
-Nome varchar(100),
-Setor varchar(50),
-Cargo varchar(50)
+Nome varchar(100) not null,
+email varchar(60) not null unique,
+Setor varchar(50) not null,
+Cargo varchar(50) not null
 );
 
-insert into Funcionarios(cpf,nome,setor,cargo) values(12345678901,'Joao Pedro','Produção','Revisor');
-insert into Funcionarios(cpf,nome,setor,cargo) values(23652381302,'Matheus','Produção','Tecelagem');
+
+insert into Funcionarios(cpf,nome,email,setor,cargo) values(12345678901,'Joao Pedro','joao.tec@outlook.com','Produção','Revisor');
+insert into Funcionarios(cpf,nome,email,setor,cargo) values(23652381302,'Matheus','duasToneladas@quilosMortais.kg.com','Cozinha','Lixeira');
+
 select * from funcionarios;
 
 
@@ -23,7 +26,7 @@ Hora_saida time,
 funcionario_FK bigint,
 foreign key (Funcionario_FK) references funcionarios(cpf)
 );
-drop table Funcionarios;
+-- drop table funcionarios;
 insert into Registro_Ponto(Dia,Hora_entrada,Entrada_intervalo,Saida_intervalo,Hora_saida,funcionario_FK) 
 values(current_date(),current_time(),'17:30:45','18:30:45','19:30:45',12345678901);
 insert into Registro_Ponto(Dia,Hora_entrada,Entrada_intervalo,Saida_intervalo,Hora_saida,funcionario_FK) 
@@ -45,13 +48,13 @@ insert into solicitacao(Funcionario,Ponto,Motivo) values(12345678901,1,"Hora err
 
 DELIMITER $$
 
-CREATE PROCEDURE listar_ponto_funcionario(IN cpf_func bigint)
+CREATE PROCEDURE listar_ponto_funcionario(IN Nome_func varchar(100), dataPonto Date )
 BEGIN
-     SELECT f.CPF as "CPF", f.Nome as "Nome", r.Dia as "Data", r.Hora_entrada as "Entrada", 
+     SELECT f.Nome as "Nome", f.Email as "E-mail", r.Dia as "Data", r.Hora_entrada as "Entrada", 
      r.Entrada_intervalo as "Entrada intervalo", r.Saida_intervalo as "Saida intervalo", r.Hora_saida as "Saida"
     FROM funcionarios f
     INNER JOIN Registro_Ponto r ON f.cpf = r.funcionario_FK
-    WHERE f.CPF = cpf_func;
+    WHERE f.Nome = Nome_func and r.Dia = dataPonto;
 END $$
 
 DELIMITER ;
@@ -60,7 +63,7 @@ DELIMITER $$
 
 CREATE PROCEDURE listar_registros_ponto()
 BEGIN
-     SELECT f.CPF as "CPF", f.Nome as "Nome", r.Dia as "Data", r.Hora_entrada as "Entrada", 
+     SELECT f.Nome as "Nome", f.Email as "E-mail",  r.Dia as "Data", r.Hora_entrada as "Entrada", 
      r.Entrada_intervalo as "Entrada intervalo", r.Saida_intervalo as "Saida intervalo", r.Hora_saida as "Saida"
     FROM funcionarios f
     Left JOIN Registro_Ponto r ON f.cpf = r.funcionario_FK;
@@ -81,11 +84,11 @@ DELIMITER ;
 
  DELIMITER $$
 
-CREATE PROCEDURE inclusao(IN cpf_func bigint, nome_func varchar(100),
+CREATE PROCEDURE inclusao(IN cpf_func bigint, nome_func varchar(100),email_func varchar(60),
 setor_func varchar(50),cargo_func varchar(50),
 dia_func date, hora_entrada_fun time, hora_entrada_intervalo_fun time, hora_saida_intervalo_fun time, hora_saida_fun time )
 BEGIN
-    insert into Funcionarios(cpf,nome,setor,cargo) values(cpf_func,nome_func,setor_func,cargo_func);
+    insert into Funcionarios(cpf,nome,email,setor,cargo) values(cpf_func,nome_func, email_func, setor_func, cargo_func);
     insert into Registro_Ponto(Dia,hora_entrada, entrada_intervalo, saida_intervalo, hora_saida, funcionario_FK) 
     values(dia_func, hora_entrada_fun, hora_entrada_intervalo_fun, hora_saida_intervalo_fun, hora_saida_fun, cpf_func);
 END $$
@@ -94,7 +97,7 @@ DELIMITER ;
 
 DELIMITER $$
 
-CREATE PROCEDURE alterar(IN cpf_func bigint,
+CREATE PROCEDURE alterar(IN Nome bigint,
 dia_func date, hora_entrada time, hora_entrada_intervalo time, hora_saida_intervalo time, hora_saida time 
 )
 BEGIN
@@ -108,7 +111,7 @@ END $$
 DELIMITER ;
 
 
-drop procedure if exists alterar;
+drop procedure if exists listar_registros_ponto;
 
 call alterar();
 call Excluir_Func(89452385124);

@@ -16,13 +16,13 @@ public class Ponto {
 	
 	public Ponto() {}
 	
-	public Ponto(Funcionario funcionario, String Entrada,String intervalo, String saidaIntervalo, String Saida) {
+	public Ponto(Funcionario funcionario,String data, String Entrada,String intervalo, String saidaIntervalo, String Saida) {
 		this.setFuncionario(funcionario); 
-		this.setData(LocalDate.now());
-		this.setHoraEntrada(Entrada);
-		this.setHoraEntradaIntervalo(intervalo);
-		this.setHoraSaidaIntervalo(saidaIntervalo);
-		this.setHoraSaida(Saida);
+		this.setData(LocalDate.parse(data));
+		this.setHoraEntrada(Time.valueOf(Saida));
+		this.setHoraEntradaIntervalo(Time.valueOf(intervalo));
+		this.setHoraSaidaIntervalo(Time.valueOf(saidaIntervalo));
+		this.setHoraSaida(Time.valueOf(Saida));
 	}
 	
 	public Funcionario getFuncionario() {
@@ -41,29 +41,29 @@ public class Ponto {
 	public Time getHoraEntrada() {
 		return horaEntrada;
 	}
-	public void setHoraEntrada(String horaEntrada) {
-		this.horaEntrada = Time.valueOf(horaEntrada);
+	public void setHoraEntrada(Time horaEntrada) {
+		this.horaEntrada = horaEntrada;
 	}
 	public Time getHoraSaida() {
 		return horaSaida;
 	}
-	public void setHoraSaida(String horaSaida) {
-		this.horaSaida = Time.valueOf(horaSaida);
+	public void setHoraSaida(Time horaSaida) {
+		this.horaSaida = horaSaida;
 	}
 	public Time getHoraEntradaIntervalo() {
 		return horaEntradaIntervalo;
 	}
 
-	public void setHoraEntradaIntervalo(String EntradaIntervalo) {
-		this.horaEntradaIntervalo = Time.valueOf(EntradaIntervalo);
+	public void setHoraEntradaIntervalo(Time EntradaIntervalo) {
+		this.horaEntradaIntervalo = EntradaIntervalo;
 	}
 
 	public Time getHoraSaidaIntervalo() {
 		return horaSaidaIntervalo;
 	}
 
-	public void setHoraSaidaIntervalo(String SaidaIntervalo) {
-		this.horaSaidaIntervalo = Time.valueOf(SaidaIntervalo);
+	public void setHoraSaidaIntervalo(Time SaidaIntervalo) {
+		this.horaSaidaIntervalo = SaidaIntervalo;
 	}
 	
 	public void alterarPonto(long cpf,String Entrada, String intervalo, String saidaIntervalo, String Saida) {
@@ -73,10 +73,10 @@ public class Ponto {
 			System.out.println("CPF do funcionário não corresponde ao ponto registrado.");
 			
 		}else {
-			this.setHoraEntrada(Entrada);
-			this.setHoraEntradaIntervalo(intervalo);
-			this.setHoraSaidaIntervalo(saidaIntervalo);
-			this.setHoraSaida(Saida);
+			this.setHoraEntrada(Time.valueOf(Entrada));
+			this.setHoraEntradaIntervalo(Time.valueOf(intervalo));
+			this.setHoraSaidaIntervalo(Time.valueOf(saidaIntervalo));
+			this.setHoraSaida(Time.valueOf(Saida));
 			System.out.println("Ponto alterado com sucesso!");
 		}
 		

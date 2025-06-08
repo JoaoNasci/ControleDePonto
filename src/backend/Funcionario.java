@@ -1,24 +1,26 @@
 package backend;
 
 public class Funcionario {
-	private int CPF;
+	private long CPF;
 	private String Nome;
+	private String Email;
 	private String Setor;
 	private String Cargo;
 	
-	 
-	public Funcionario(int cpf,String nome, String setor, String cargo) {
+	public Funcionario() {}
+	public Funcionario(int cpf,String nome,String email, String setor, String cargo) {
 		this.setCPF(cpf);
+		this.setEmail(email);
 		this.setNome(nome);
 		this.setSetor(setor);
 		this.setCargo(cargo);
 		
 	}
 	
-	public int getCPF() {
+	public long getCPF() {
 		return this.CPF;
 	}
-	public void setCPF(int cpf) {
+	public void setCPF(long cpf) {
 		this.CPF = cpf;
 	}
 	public String getNome() {
@@ -26,6 +28,13 @@ public class Funcionario {
 	}
 	public void setNome(String nome) {
 		this.Nome = nome;
+	}
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
 	}
 	public String getSetor() {
 		return this.Setor;
@@ -51,4 +60,6 @@ public String toString() {
 	str += "Cargo: " + this.getCargo() + "\n";
 	return str;
 }
+
+
 }
