@@ -8,13 +8,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class Eventos extends JFrame {
-    private ConecxaoBD bd = new ConecxaoBD();
+    private ConecxaoBD bd = null;
     private UsuarioDAO usuarioDAO;
 
     public DefaultTableModel exibirDados() {
@@ -71,22 +72,30 @@ public class Eventos extends JFrame {
 		return new MouseAdapter () {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				bd = new ConecxaoBD();
 				if(!bd.getConnection()) {
 					System.out.println("Falha na conexão.");
 				}
 				else {
-					bd.getConnection();
-					System.out.println("Conexão estabelecida com sucesso.");
+					
+					
 					String texto = cpf.getText();
 
 					if (texto != null && !texto.trim().isEmpty()) {
 					    try {
 					        long valor = Long.parseLong(texto);
+					        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+					        formato.setLenient(false);
 					        SimpleDateFormat formatoSQL = new SimpleDateFormat("yyyy/MM/dd");
-					        String dataFormatada = formatoSQL.format(formatoSQL.parse(data.getText()));
+					        
+					        Date dataFormatada = formato.parse(data.getText().trim());
+					        String dataFormatadaSQL = formatoSQL.format(dataFormatada);
+					        
+					        System.out.println("Valor formatado: " + valor);
+					        System.out.println("Data formatada: " + dataFormatada);
 					        Ponto ponto = new Ponto();
 							usuarioDAO = new UsuarioDAO();
-							usuarioDAO.Alterar(valor, dataFormatada, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
+							usuarioDAO.Alterar(valor, dataFormatadaSQL, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
 							ponto.alterarPonto(valor, entrada.getText(), entradaIntevalo.getText(), saidaIntervalo.getText(), saida.getText());
 							
 					        
