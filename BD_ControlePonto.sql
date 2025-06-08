@@ -111,11 +111,11 @@ END $$
 DELIMITER ;
 
 
-drop procedure if exists listar_registros_ponto;
+drop procedure if exists listar_ponto_funcionario;
 
 call alterar();
 call Excluir_Func(89452385124);
 call Inclusao(89452385124,'Joao Pedro','Produção','Supervisor', '18:30:45' );
 call listar_registros_ponto();
-call listar_ponto_funcionario(12345678901);
+call listar_ponto_funcionario("Joao Pedro", "2025-06-08");
 call alterar(12345678901,"2025-05-25","05:00:00","09:10:00","10:10:00","13:30:00");
