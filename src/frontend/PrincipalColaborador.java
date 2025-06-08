@@ -13,7 +13,6 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 
-
 import backend.Eventos;
 
 import javax.swing.JTextField;
@@ -67,14 +66,19 @@ public class PrincipalColaborador extends JFrame {
 		panel.setBounds(0, 0, 1227, 88);
 		contentPane.add(panel);
 		
-		JButton btnEditarRegistro = new JButton("Solicitar Reajuste");
-		btnEditarRegistro.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEditarRegistro.setFocusTraversalKeysEnabled(false);
-		btnEditarRegistro.setFocusPainted(false);
-		btnEditarRegistro.setBorderPainted(false);
-		btnEditarRegistro.setBackground(new Color(255, 102, 51));
-		btnEditarRegistro.setBounds(1072, 30, 145, 32);
-		panel.add(btnEditarRegistro);
+		JButton btnSolcitarReajuste = new JButton("Solicitar Reajuste");
+		btnSolcitarReajuste.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSolcitarReajuste.setFocusTraversalKeysEnabled(false);
+		btnSolcitarReajuste.setFocusPainted(false);
+		btnSolcitarReajuste.setBorderPainted(false);
+		btnSolcitarReajuste.setBackground(new Color(255, 102, 51));
+		btnSolcitarReajuste.setBounds(1072, 30, 145, 32);
+		panel.add(btnSolcitarReajuste);
+		btnSolcitarReajuste.addActionListener(e -> {
+			SolicitarReajuste solicitarReajuste = new SolicitarReajuste();
+			solicitarReajuste.setVisible(true);
+			dispose();
+		});
 		
 		JLabel lblNewLabel = new JLabel("Visualizar Registros de ponto");
 		lblNewLabel.setForeground(Color.WHITE);

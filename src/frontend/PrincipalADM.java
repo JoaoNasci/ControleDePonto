@@ -3,21 +3,25 @@ package frontend;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.Dimension;
-import java.awt.Color;
-import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+
 import backend.Eventos;
 
-import javax.swing.JScrollPane;
+import java.awt.Dimension;
+import java.awt.Color;
+import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
-public class PrincipalADM {
+public class PrincipalADM extends JFrame {
 
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
 
@@ -28,8 +32,8 @@ public class PrincipalADM {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PrincipalADM window = new PrincipalADM();
-					window.frame.setVisible(true);
+					PrincipalADM frame = new PrincipalADM();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,91 +42,82 @@ public class PrincipalADM {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public PrincipalADM() {
-		initialize();
-	}
+		setMinimumSize(new Dimension(1243, 834));
+		setMaximumSize(new Dimension(1243, 834));
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBackground(new Color(55, 55, 55));
+		contentPane.setMinimumSize(new Dimension(1243, 834));
+		contentPane.setMaximumSize(new Dimension(1243, 834));
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setMaximumSize(new Dimension(1243, 834));
-		frame.setMaximumSize(new Dimension(1243, 834));
-		frame.getContentPane().setBackground(new Color(55, 55, 55));
-		frame.setMinimumSize(new Dimension(1243, 834));
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setLayout(null);
 		panel.setBackground(new Color(44, 44, 44));
 		panel.setBounds(0, 0, 1227, 88);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		contentPane.add(panel);
 		
 		JButton btnExcluirRegistro = new JButton("Excluir registro");
+		btnExcluirRegistro.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnExcluirRegistro.setFocusTraversalKeysEnabled(false);
 		btnExcluirRegistro.setFocusPainted(false);
 		btnExcluirRegistro.setBorderPainted(false);
+		btnExcluirRegistro.setBackground(new Color(255, 102, 51));
 		btnExcluirRegistro.setBounds(882, 26, 145, 31);
 		panel.add(btnExcluirRegistro);
-		btnExcluirRegistro.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnExcluirRegistro.setBackground(new Color(255, 102, 51));
 		
 		JButton btnEditarRegistro = new JButton("Editar registro");
-		btnEditarRegistro.setFocusPainted(false);
-		btnEditarRegistro.setFocusTraversalKeysEnabled(false);
-		btnEditarRegistro.setBounds(1060, 26, 145, 32);
-		panel.add(btnEditarRegistro);
 		btnEditarRegistro.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnEditarRegistro.setFocusTraversalKeysEnabled(false);
+		btnEditarRegistro.setFocusPainted(false);
 		btnEditarRegistro.setBorderPainted(false);
 		btnEditarRegistro.setBackground(new Color(255, 102, 51));
+		btnEditarRegistro.setBounds(1060, 26, 145, 32);
+		panel.add(btnEditarRegistro);
 		
 		JLabel lblNewLabel = new JLabel("Visualizar Registros de ponto");
-		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblNewLabel.setBounds(10, 30, 291, 28);
 		panel.add(lblNewLabel);
 		
 		Eventos eventos = new Eventos();
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 173, 1195, 480);
-		frame.getContentPane().add(scrollPane);
+		scrollPane.setBounds(10, 181, 1193, 467);
+		contentPane.add(scrollPane);
 		
 		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setSelectionForeground(Color.WHITE);
+		table.setSelectionBackground(new Color(77, 77, 77));
 		table.setForeground(Color.WHITE);
 		table.setFocusable(false);
-		scrollPane.setViewportView(table);
-		table.setSelectionForeground(new Color(255, 255, 255));
-		table.setSelectionBackground(new Color(77, 77, 77));
 		table.setBackground(new Color(44, 44, 44));
 		table.setModel(eventos.exibirDados());
 		
 		textField = new JTextField();
-		textField.setBounds(10, 136, 173, 26);
-		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		textField.setBounds(10, 146, 173, 26);
+		contentPane.add(textField);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(193, 146, 141, 26);
+		contentPane.add(comboBox);
 		
 		JButton btnPesquisar = new JButton("Pesquisar");
-		btnPesquisar.setFocusPainted(false);
-		btnPesquisar.setFocusTraversalKeysEnabled(false);
 		btnPesquisar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnPesquisar.setFocusTraversalKeysEnabled(false);
+		btnPesquisar.setFocusPainted(false);
 		btnPesquisar.setBorderPainted(false);
 		btnPesquisar.setBackground(new Color(255, 102, 51));
-		btnPesquisar.setBounds(196, 136, 110, 26);
-		frame.getContentPane().add(btnPesquisar);
-		
-		JButton btnAtualizar = new JButton("Atualizar");
-		btnAtualizar.setFocusTraversalKeysEnabled(false);
-		btnAtualizar.setFocusPainted(false);
-		btnAtualizar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnAtualizar.setBorderPainted(false);
-		btnAtualizar.setBackground(new Color(255, 102, 51));
-		btnAtualizar.setBounds(1075, 136, 110, 26);
-		frame.getContentPane().add(btnAtualizar);
-		table.getColumnModel().getColumn(2).setMinWidth(16);
+		btnPesquisar.setBounds(344, 145, 110, 26);
+		contentPane.add(btnPesquisar);
 	}
 }
