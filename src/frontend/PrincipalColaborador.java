@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import backend.Eventos;
 
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class PrincipalColaborador extends JFrame {
 
@@ -88,6 +89,7 @@ public class PrincipalColaborador extends JFrame {
 		
 		Eventos eventos = new Eventos();
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(new Color(255, 255, 255));
 		scrollPane.setBounds(10, 173, 1189, 480);
 		contentPane.add(scrollPane);
 		
@@ -114,7 +116,11 @@ public class PrincipalColaborador extends JFrame {
 		btnPesquisar.setFocusPainted(false);
 		btnPesquisar.setBorderPainted(false);
 		btnPesquisar.setBackground(new Color(255, 102, 51));
-		btnPesquisar.setBounds(199, 140, 110, 26);
+		btnPesquisar.setBounds(343, 139, 110, 26);
 		contentPane.add(btnPesquisar);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(192, 140, 141, 26);
+		contentPane.add(comboBox);
 	}
 }
