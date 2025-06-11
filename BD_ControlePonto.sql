@@ -4,8 +4,8 @@ use ControleDePonto;
 create table Funcionarios(
 CPF bigint(11) unique not null primary key,
 Nome varchar(150) not null,
-Senha varchar(16) not null,
 email varchar(150) not null unique,
+Senha varchar(16) not null,
 Setor varchar(50) not null,
 Cargo varchar(50) not null,
 Tipo int(1) not null
@@ -112,11 +112,11 @@ DELIMITER ;
 
  DELIMITER $$
 
-CREATE PROCEDURE inclusao(IN cpf_func bigint, nome_func varchar(100),email_func varchar(60),
-setor_func varchar(50),cargo_func varchar(50),
+CREATE PROCEDURE inclusao(IN cpf_func bigint, nome_func varchar(100),email_func varchar(60), senha_fun varchar(16),
+setor_func varchar(50),cargo_func varchar(50), tipo_fun int(1),
 dia_func date, hora_entrada_fun time, hora_entrada_intervalo_fun time, hora_saida_intervalo_fun time, hora_saida_fun time )
 BEGIN
-    insert into Funcionarios(cpf,nome,email,setor,cargo) values(cpf_func,nome_func, email_func, setor_func, cargo_func);
+    insert into Funcionarios(cpf,nome,email,senha,setor,cargo,tipo) values(cpf_func,nome_func, email_func,senha_fun, setor_func, cargo_func,tipo_fun);
     insert into Registro_Ponto(Dia,hora_entrada, entrada_intervalo, saida_intervalo, hora_saida, funcionario_FK) 
     values(dia_func, hora_entrada_fun, hora_entrada_intervalo_fun, hora_saida_intervalo_fun, hora_saida_fun, cpf_func);
 END $$

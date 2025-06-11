@@ -24,6 +24,17 @@ public class PrincipalColaborador extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private String email;
+	
+	public PrincipalColaborador() {
+		IniciarConponetes() ;
+	}
+	
+	public PrincipalColaborador(String email) {
+		this.email = email;
+		IniciarConponetes();
+        carregarDadosNaTabela(email);
+	}
 
 	/**
 	 * Launch the application.
@@ -41,13 +52,12 @@ public class PrincipalColaborador extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	/**
-	 * 
-	 */
-	public PrincipalColaborador() {
+	
+	private void carregarDadosNaTabela(String email) {
+		Eventos eventos = new Eventos();
+		table.setModel(eventos.exibirfuncionario(email));
+	}
+	private void  IniciarConponetes() {
 		setMinimumSize(new Dimension(1243, 834));
 		setMaximumSize(new Dimension(1243, 834));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,7 +97,7 @@ public class PrincipalColaborador extends JFrame {
 		lblNewLabel.setBounds(10, 30, 291, 28);
 		panel.add(lblNewLabel);
 		
-		Eventos eventos = new Eventos();
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBackground(new Color(255, 255, 255));
 		scrollPane.setBounds(10, 173, 1189, 480);
@@ -97,7 +107,7 @@ public class PrincipalColaborador extends JFrame {
 		table.setForeground(new Color(255, 255, 255));
 		scrollPane.setViewportView(table);
 		
-		table.setModel(eventos.exibirDados());
+		
 		table.setSelectionForeground(Color.WHITE);
 		table.setSelectionBackground(new Color(77, 77, 77));
 		table.setFocusable(false);

@@ -7,15 +7,18 @@ public class Funcionario {
 	private String Senha;
 	private String Setor;
 	private String Cargo;
+	private int tipo;
+	
 	
 	public Funcionario() {}
-	public Funcionario(int cpf,String nome,String email, String senha, String setor, String cargo) {
+	public Funcionario(int cpf,String nome,String email, String senha, String setor, String cargo, int tipo) {
 		this.setCPF(cpf);
 		this.setEmail(email);
 		this.setSenha(senha);
 		this.setNome(nome);
 		this.setSetor(setor);
 		this.setCargo(cargo);
+		this.setTipo(tipo);
 		
 	}
 	
@@ -55,6 +58,13 @@ public class Funcionario {
 	public void setCargo(String cargo) {
 		this.Cargo = cargo;
 	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
+	}
+	
 	
 
 	

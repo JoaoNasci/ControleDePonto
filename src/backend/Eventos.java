@@ -42,23 +42,30 @@ public class Eventos extends JFrame {
             
             ResultSetMetaData meta = rs.getMetaData();
             int colunas = meta.getColumnCount();
-
+            
+            String[] coluna = {"Nome", "Email", "Data", "Entrada", "Entrada Intervalo", "Saída Intervalo", "Saída" , "Motivo"}; 
             DefaultTableModel model = new DefaultTableModel();
 
             
-            for (int i = 1; i <= colunas; i++) {
-                model.addColumn(meta.getColumnName(i));
+            for (String nomeColuna : coluna) {
+                model.addColumn(nomeColuna);
             }
-
-           
-            while (rs.next()) {
-                Object[] linha = new Object[colunas];
-                for (int i = 1; i <= colunas; i++) {
-                    linha[i - 1] = rs.getObject(i);
+            
+            if (!rs.isBeforeFirst()) { 
+                Object[] linhaVazia = new Object[coluna.length];
+                linhaVazia[0] = "Sem registro!"; // 
+                model.addRow(linhaVazia);
+                return model;
+            }else {
+            	while (rs.next()) {
+                    Object[] linha = new Object[coluna.length];
+                    for (int i = 1; i <= coluna.length; i++) {
+                        linha[i - 1] = rs.getObject(i);
+                    }
+                    model.addRow(linha);
                 }
-                model.addRow(linha);
-            }
-
+			}
+           
             rs.close();
             stmt.close();
             bd.closeConnection();
@@ -71,54 +78,65 @@ public class Eventos extends JFrame {
         }
     }
     
-    public DefaultTableModel exibirSolicitacao(String email) {
-        String sql = "call listar_ponto_funcionario(?);"; 
+    public DefaultTableModel exibirfuncionario(String email) {
+    	   String sql = " call listar_ponto_funcionario(?)"; 
 
-        try {
-        	bd = new ConecxaoBD();
-            if (!this.bd.getConnection()) {
-            	
-                System.out.println("Falha na conexão.");
-                
-            } else {
-            	bd.getConnection();
-				System.out.println("Conexão estabelecida com sucesso.");
-            }
 
-            PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-            stmt.setString(1, email);
-            ResultSet rs = stmt.executeQuery();
+           try {
+           	bd = new ConecxaoBD();
+               if (!this.bd.getConnection()) {
+               	
+                   System.out.println("Falha na conexão.");
+                   
+               } else {
+               	bd.getConnection();
+   				System.out.println("Conexão estabelecida com sucesso.");
+               }
 
-            
-            ResultSetMetaData meta = rs.getMetaData();
-            int colunas = meta.getColumnCount();
+               PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
+               stmt.setString(1, email);
+               ResultSet rs = stmt.executeQuery();
 
-            DefaultTableModel model = new DefaultTableModel();
+               
+               ResultSetMetaData meta = rs.getMetaData();
+               int colunas = meta.getColumnCount();
+               
+               String[] coluna = {"Nome", "Email", "Data", "Entrada", "Entrada Intervalo", "Saída Intervalo", "Saída"}; 
+               DefaultTableModel model = new DefaultTableModel();
 
-            
-            for (int i = 1; i <= colunas; i++) {
-                model.addColumn(meta.getColumnName(i));
-            }
+               
+               for (String nomeColuna : coluna) {
+                   model.addColumn(nomeColuna);
+               }
+               
+               if (!rs.isBeforeFirst()) { 
+                   Object[] linhaVazia = new Object[coluna.length];
+                   linhaVazia[0] = "Sem registro!"; // 
+                   model.addRow(linhaVazia);
+                   
+               }else {
+               	while (rs.next()) {
+                       Object[] linha = new Object[coluna.length];
+                       for (int i = 1; i <= coluna.length; i++) {
+                           linha[i - 1] = rs.getObject(i);
+                       }
+                       model.addRow(linha);
+                   }
+   			}
+              
+               rs.close();
+               stmt.close();
+               bd.closeConnection();
+               return model;
+               
+               
 
-           
-            while (rs.next()) {
-                Object[] linha = new Object[colunas];
-                for (int i = 1; i <= colunas; i++) {
-                    linha[i - 1] = rs.getObject(i);
-                }
-                model.addRow(linha);
-            }
-
-            rs.close();
-            stmt.close();
-            bd.closeConnection();
-            return model;
-
-        } catch (SQLException e) {
-        	System.out.println("Erro ao executar a consulta: " + e.getMessage());
-            
-        	return null;
-        }
+           } catch (SQLException e) {
+           	System.out.println("Erro ao executar a consulta: " + e.getMessage());
+             return null;  
+          
+           }
+     
     }
 
    public MouseAdapter mouseAdapter(JTextField Nome, JTextField data, JTextField entrada, JTextField entradaIntevalo, JTextField saidaIntervalo, JTextField saida) {

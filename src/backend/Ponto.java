@@ -66,21 +66,6 @@ public class Ponto {
 		this.horaSaidaIntervalo = SaidaIntervalo;
 	}
 	
-	public void alterarPonto(long cpf,String Entrada, String intervalo, String saidaIntervalo, String Saida) {
-		
-		if (this.funcionario.getCPF() != cpf) {
-		
-			System.out.println("CPF do funcionário não corresponde ao ponto registrado.");
-			
-		}else {
-			this.setHoraEntrada(Time.valueOf(Entrada));
-			this.setHoraEntradaIntervalo(Time.valueOf(intervalo));
-			this.setHoraSaidaIntervalo(Time.valueOf(saidaIntervalo));
-			this.setHoraSaida(Time.valueOf(Saida));
-			System.out.println("Ponto alterado com sucesso!");
-		}
-		
-	}
 	
 	
 	@Override

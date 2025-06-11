@@ -12,6 +12,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import backend.Funcionario;
 import backend.UsuarioDAO;
@@ -31,6 +32,21 @@ public class Login  extends JFrame {
 	private JTextField textField;
 	private final JPanel panel = new JPanel();
 	private JTextField textField_1;
+	private String email;
+	private String senha;
+	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	/**
 	 * Launch the application.
@@ -98,42 +114,41 @@ public class Login  extends JFrame {
 		
 		
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					
-				String usuario = textField.getText();
-				String senha = textField_1.getText();
-				
-				Funcionario funcionario = new Funcionario();
-				funcionario.setEmail(usuario);
-				funcionario.setNome(senha);
-				
-				UsuarioDAO usuarioDao = new UsuarioDAO();
-				ResultSet rs = usuarioDao.autenticarUsuario(funcionario);
-				
-				if (rs.next()) {
-				int tipo = rs.getInt("Tipo");
-					
-				if (tipo == 1) {
-					 PrincipalColaborador principalColaborador = new PrincipalColaborador();
-			          principalColaborador.setVisible(true);
-			          dispose();
-					
-				}else if (tipo == 2) {
-					 PrincipalADM principalADM = new PrincipalADM();
-			          principalADM.setVisible(true);
-			          dispose();
-				} 
-				else {
-					JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
-				}
-			    }
-				} catch (Exception erro) {
-					JOptionPane.showMessageDialog(null, "Erro ao fazer login: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-				}
-			}
-			
+		    public void actionPerformed(ActionEvent e) {
+		        try {
+		            String Email = textField.getText().trim();
+		            String senha = textField_1.getText().trim();
+		       
+		            UsuarioDAO usuarioDao = new UsuarioDAO();
+		            ResultSet rs = usuarioDao.autenticarUsuario(Email, senha);
+		         
+
+		            if (rs.next()) {
+		                int tipo = rs.getInt("Tipo");
+
+		                if (tipo == 1) {
+		                    PrincipalColaborador pc = new PrincipalColaborador(Email);
+		                    pc.setVisible(true);
+		                    
+		                    ((JFrame) SwingUtilities.getWindowAncestor(btnNewButton)).dispose();
+		                } else if (tipo == 2) {
+		                    PrincipalADM pa = new PrincipalADM();
+		                    pa.setVisible(true);
+		                    ((JFrame) SwingUtilities.getWindowAncestor(btnNewButton)).dispose();
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Tipo de usuário inválido.");
+		                }
+		            } else {
+		                JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos");
+		            }
+
+		        } catch (Exception erro) {
+		            JOptionPane.showMessageDialog(null, "Erro ao fazer login: " + erro.getMessage());
+		            erro.printStackTrace(); 
+		        }
+		    }
 		});
+
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(59, 59, 59));

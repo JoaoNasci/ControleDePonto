@@ -11,70 +11,6 @@ import java.util.List;
 public class UsuarioDAO {
 	
 
-	public void ListarFuncionarios() {
-		   String sql = "SELECT * FROM Funcionarios";
-		   ConecxaoBD bd = new ConecxaoBD();
-		   List<Funcionario> funcionarios = new ArrayList<>();
-		   if (bd.getConnection()) {
-		   try {
-			   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-			   ResultSet rs = stmt.executeQuery();
-			   
-			   while (rs.next()) {
-				   Funcionario funcionario = new Funcionario() ;
-				   funcionario.setCPF(rs.getLong("cpf"));
-				   funcionario.setNome(rs.getString("nome"));
-				   funcionario.setEmail(rs.getString("email"));
-				   funcionario.setSetor(rs.getString("setor"));
-				   funcionario.setCargo(rs.getString("cargo"));
-				   funcionarios.add(funcionario);
-			   }
-			   rs.close();
-			   stmt.close();
-			   bd.closeConnection();
-		   } catch (SQLException e) {
-			   System.out.println("Erro ao listar funcionários: " + e.getMessage());
-			   e.printStackTrace();
-		   	}
-		   }
-	}
-	   
-   
-   public List<String> listarPontos(String Nome, Date data) {
-	   String sql = "call listar_ponto_funcionario(?,?)";
-	   ConecxaoBD bd = new ConecxaoBD();
-	   List<String> pontos = new ArrayList<>();
-	   if (bd.getConnection()) {
-	   try {
-		   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-		   stmt.setString(1, Nome);
-		   stmt.setDate(2, data);
-		   ResultSet rs = stmt.executeQuery();
-		   
-		   while (rs.next()) {
-			   String entrada = rs.getTime("hora_entrada").toString();
-			   String entradaIntervalo = rs.getTime("hora_entrada_intervalo").toString();
-			   String saidaIntervalo = rs.getTime("hora_saida_intervalo").toString();
-			   String saida = rs.getTime("hora_saida").toString();
-			   
-			   pontos.add("Entrada: "+ entrada);
-			   pontos.add("Entrada Intervalo: " + entradaIntervalo);
-			   pontos.add("Saída Intervalo: " + saidaIntervalo);
-			   pontos.add("Saída: " + saida);
-			   
-		   }
-		   
-		   rs.close();
-		   stmt.close();
-		   bd.closeConnection();
-	   } catch (SQLException e) {
-		   System.out.println("Erro ao listar pontos: " + e.getMessage());
-		   e.printStackTrace();
-	   	}
-	   }
-	   return pontos;
-   }
-   
    public void IncluirSolicitacao(String Nome, String data, String motivo) {
 	   String sql = "call incluirSolicitacao(?,?,?)";
 	   ConecxaoBD bd = new ConecxaoBD();
@@ -115,8 +51,8 @@ public class UsuarioDAO {
 	   }
    }
    
-   public void InserirFuncioRegistro( Funcionario funcionario,Ponto ponto) {
-	   String sql = "call inclusao(?,?,?,?,?,?,?,?,?,?)";
+   public void InserirFuncioRegistro(Funcionario funcionario,Ponto ponto) {
+	   String sql = "call inclusao(?,?,?,?,?,?,?,?,?,?,?,?)";
 	   ConecxaoBD bd = new ConecxaoBD();
 	   if(bd.getConnection()) {
 	   try {
@@ -124,13 +60,16 @@ public class UsuarioDAO {
 		   stmt.setLong(1, funcionario.getCPF());
 		   stmt.setString(2, funcionario.getNome());
 		   stmt.setString(3, funcionario.getEmail());
-		   stmt.setString(4, funcionario.getCargo());
-		   stmt.setString(5, funcionario.getSetor());
-		   stmt.setDate(6, Date.valueOf(ponto.getData()));
-		   stmt.setTime(7, ponto.getHoraEntrada());
-		   stmt.setTime(8, ponto.getHoraEntradaIntervalo());
-		   stmt.setTime(9, ponto.getHoraSaidaIntervalo());
-		   stmt.setTime(10, ponto.getHoraSaida());
+		   stmt.setString(4, funcionario.getSenha());
+		   stmt.setString(5, funcionario.getCargo());
+		   stmt.setString(6, funcionario.getSetor());
+		   stmt.setInt(7, funcionario.getTipo());
+		   stmt.setDate(8, Date.valueOf(ponto.getData()));
+		   stmt.setTime(9, ponto.getHoraEntrada());
+		   stmt.setTime(10, ponto.getHoraEntradaIntervalo());
+		   stmt.setTime(11, ponto.getHoraSaidaIntervalo());
+		   stmt.setTime(12, ponto.getHoraSaida());
+		   
 		   
 		   stmt.executeUpdate();
 		   System.out.println("Funcionário inserido com sucesso!");
@@ -166,15 +105,15 @@ public class UsuarioDAO {
 	   }
    }
    
-   public ResultSet autenticarUsuario(Funcionario funcionario) {
-	   String sql = "SELECT * FROM Funcionarios WHERE email = ? AND nome = ?";
+   public ResultSet autenticarUsuario(String email, String senha) {
+	   String sql = "SELECT * FROM Funcionarios WHERE email = ? AND senha = ?";
 	   ConecxaoBD bd = new ConecxaoBD();
 	   
 	   if (bd.getConnection()) {
 		   try {
 			   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
-			   stmt.setString(1, funcionario.getEmail());
-			   stmt.setString(2, funcionario.getNome());
+			   stmt.setString(1, email);
+			   stmt.setString(2, senha);
 			   
 			   ResultSet rs = stmt.executeQuery();
 			   return rs;
