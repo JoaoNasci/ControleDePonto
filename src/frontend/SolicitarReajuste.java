@@ -180,6 +180,7 @@ public class SolicitarReajuste extends JFrame {
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBackground(new Color(55, 55, 55));
 		comboBox.setBounds(106, 250, 175, 22);
+		comboBox.addItem("Selecione");
 		panel.add(comboBox);
 		
 		
