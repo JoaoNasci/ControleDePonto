@@ -165,7 +165,28 @@ public class UsuarioDAO {
 	   }
 	   }
    }
-
    
+   public ResultSet autenticarUsuario(Funcionario funcionario) {
+	   String sql = "SELECT * FROM Funcionarios WHERE email = ? AND nome = ?";
+	   ConecxaoBD bd = new ConecxaoBD();
+	   
+	   if (bd.getConnection()) {
+		   try {
+			   PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
+			   stmt.setString(1, funcionario.getEmail());
+			   stmt.setString(2, funcionario.getNome());
+			   
+			   ResultSet rs = stmt.executeQuery();
+			   return rs;
+		   } catch (SQLException e) {
+			   System.out.println("Erro ao autenticar: " + e.getMessage());
+			   e.printStackTrace();
+			   return null;
+		   }
+		    
+	   }
+	   ResultSet rs = null;
+	   return rs;  
+   }
 
 }

@@ -64,24 +64,6 @@ public class PrincipalADM extends JFrame {
 		panel.setBounds(0, 0, 1227, 88);
 		contentPane.add(panel);
 		
-		JButton btnExcluirRegistro = new JButton("Excluir registro");
-		btnExcluirRegistro.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnExcluirRegistro.setFocusTraversalKeysEnabled(false);
-		btnExcluirRegistro.setFocusPainted(false);
-		btnExcluirRegistro.setBorderPainted(false);
-		btnExcluirRegistro.setBackground(new Color(255, 102, 51));
-		btnExcluirRegistro.setBounds(882, 26, 145, 31);
-		panel.add(btnExcluirRegistro);
-		
-		JButton btnEditarRegistro = new JButton("Editar registro");
-		btnEditarRegistro.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnEditarRegistro.setFocusTraversalKeysEnabled(false);
-		btnEditarRegistro.setFocusPainted(false);
-		btnEditarRegistro.setBorderPainted(false);
-		btnEditarRegistro.setBackground(new Color(255, 102, 51));
-		btnEditarRegistro.setBounds(1060, 26, 145, 32);
-		panel.add(btnEditarRegistro);
-		
 		JLabel lblNewLabel = new JLabel("Visualizar Registros de ponto");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));

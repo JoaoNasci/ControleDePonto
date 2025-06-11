@@ -3,13 +3,19 @@ package frontend;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import backend.Funcionario;
+import backend.UsuarioDAO;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
@@ -22,9 +28,9 @@ import java.awt.Font;
 public class Login  extends JFrame {
 
 	private JFrame frmLoginNoSistema;
-	private JPasswordField passwordField;
 	private JTextField textField;
 	private final JPanel panel = new JPanel();
+	private JTextField textField_1;
 
 	/**
 	 * Launch the application.
@@ -78,13 +84,6 @@ public class Login  extends JFrame {
 		textField.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textField.setColumns(10);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFocusTraversalKeysEnabled(false);
-		passwordField.setForeground(new Color(255, 255, 255));
-		passwordField.setBackground(new Color(95, 95, 95));
-		passwordField.setBounds(86, 201, 174, 26);
-		panel.add(passwordField);
-		
 		JButton btnNewButton = new JButton("Login");
 		btnNewButton.setFocusTraversalKeysEnabled(false);
 		btnNewButton.setFocusPainted(false);
@@ -96,24 +95,35 @@ public class Login  extends JFrame {
 		btnNewButton.setBounds(86, 274, 174, 39);
 		panel.add(btnNewButton);
 		btnNewButton.setBackground(new Color(255, 102, 51));
+		
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					
 				String usuario = textField.getText();
-				String senha = new String(passwordField.getPassword());
+				String senha = textField_1.getText();
 				
-				if (usuario.equals("admin") && senha.equals("admin")) {
-					PrincipalADM principalADM = new PrincipalADM();
-					principalADM.setVisible(true);
-					frmLoginNoSistema.dispose();
-				} else if (usuario.equals("colaborador") && senha.equals("colaborador")) {
-					PrincipalColaborador principalColaborador = new PrincipalColaborador();
-					principalColaborador.setVisible(true);
-					frmLoginNoSistema.dispose();
-				} else {
-					System.out.println("Usuário ou senha inválidos.");
+				Funcionario funcionario = new Funcionario();
+				funcionario.setEmail(usuario);
+				funcionario.setNome(senha);
+				
+				UsuarioDAO usuarioDao = new UsuarioDAO();
+				ResultSet rs = usuarioDao.autenticarUsuario(funcionario);
+				
+				if (rs.next()) {
+					
+		          PrincipalColaborador principalColaborador = new PrincipalColaborador();
+		          principalColaborador.setVisible(true);
+		          dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
+				}
+			    } catch (Exception erro) {
+					JOptionPane.showMessageDialog(null, "Erro ao fazer login: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}
+			
 		});
 		
 		JPanel panel_1 = new JPanel();
@@ -141,6 +151,15 @@ public class Login  extends JFrame {
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblNewLabel_1_1.setBounds(86, 179, 67, 16);
 		panel.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setName("Login");
+		textField_1.setForeground(Color.WHITE);
+		textField_1.setColumns(10);
+		textField_1.setBackground(new Color(95, 95, 95));
+		textField_1.setAlignmentX(0.0f);
+		textField_1.setBounds(86, 205, 174, 26);
+		panel.add(textField_1);
 		
 		 
 		   }

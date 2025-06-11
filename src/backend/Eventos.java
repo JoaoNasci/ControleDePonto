@@ -20,7 +20,11 @@ public class Eventos extends JFrame {
     private UsuarioDAO usuarioDAO;
 
     public DefaultTableModel exibirDados() {
+<<<<<<< HEAD
         String sql = "call listar_ponto_funcionario(?);"; 
+=======
+        String sql = "listar_Solicitacao();"; 
+>>>>>>> 08c362b9962ce9423a3fd716000e7e0a2d959447
 
         try {
         	bd = new ConecxaoBD();
