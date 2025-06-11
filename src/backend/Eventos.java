@@ -68,7 +68,7 @@ public class Eventos extends JFrame {
         }
     }
 
-   public MouseAdapter mouseAdapter(JTextField cpf, JTextField data, JTextField entrada, JTextField entradaIntevalo, JTextField saidaIntervalo, JTextField saida) {
+   public MouseAdapter mouseAdapter(JTextField Nome, JTextField data, JTextField entrada, JTextField entradaIntevalo, JTextField saidaIntervalo, JTextField saida) {
 		
 		return new MouseAdapter () {
 			@Override
@@ -78,13 +78,9 @@ public class Eventos extends JFrame {
 					System.out.println("Falha na conexão.");
 				}
 				else {
-					
-					
-					String texto = cpf.getText();
-
-					if (texto != null && !texto.trim().isEmpty()) {
+				
 					    try {
-					        long valor = Long.parseLong(texto);
+					        
 					        String horaEntrada = entrada.getText().trim();
 					        String horaEntradaIntervalo = entradaIntevalo.getText().trim();
 					        String horaSaidaIntervalo = saidaIntervalo.getText().trim();
@@ -114,17 +110,15 @@ public class Eventos extends JFrame {
 					       
 					        Ponto ponto = new Ponto();
 							usuarioDAO = new UsuarioDAO();
-							usuarioDAO.Alterar(valor, dataSQL, horaEntrada , horaEntradaIntervalo, horaSaidaIntervalo, horaSaida);
+							usuarioDAO.EditarRegistro(Nome.getText().trim(), dataSQL, horaEntrada , horaEntradaIntervalo, horaSaidaIntervalo, horaSaida);
 							
-					        System.out.println("Dados recebidos: " + valor + ", " + dataSQL + ", " + horaEntrada + ", " + horaEntradaIntervalo + ", " + horaSaidaIntervalo + ", " + horaSaida);
+					        System.out.println("Dados recebidos: " + Nome.getText().trim() + ", " + dataSQL + ", " + horaEntrada + ", " + horaEntradaIntervalo + ", " + horaSaidaIntervalo + ", " + horaSaida);
 							
 						
-					    } catch (NumberFormatException | ParseException  et) {
-					        System.out.println("Erro: valor inválido! Não é um número: " + texto);
+					    } catch ( ParseException  et) {
+					        System.out.println("Erro: valor inválido! Não é um número: " );
 					    }
-					} else {
-					    System.out.println("Erro: o campo está vazio!");
-					}
+					
 				
 				
 				}
@@ -135,6 +129,6 @@ public class Eventos extends JFrame {
 		
 	}
 		
-
+   
 
 }
