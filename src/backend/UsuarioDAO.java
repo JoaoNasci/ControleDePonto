@@ -184,9 +184,14 @@ public class UsuarioDAO {
 			   return null;
 		   }
 		    
+	   }else {
+		   System.out.println("Erro ao conectar ao banco de dados.");
+		   return null;
 	   }
-	   ResultSet rs = null;
-	   return rs;  
+	  
    }
+   
+   
+ 
 
 }

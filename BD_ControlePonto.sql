@@ -72,8 +72,8 @@ BEGIN
      r.Entrada_intervalo as "Entrada intervalo", r.Saida_intervalo as "Saida intervalo", 
      r.Hora_saida as "Saida", s.Motivo as "Motivo"
     FROM Solicitacao s
-    INNER JOIN funcionarios f on s.Funcionario = f.CPF
-    INNER JOIN Registro_Ponto r ON s.Ponto = r.id;
+    INNER JOIN funcionarios f on s.Funcionario_FK = f.CPF
+    INNER JOIN Registro_Ponto r ON s.Registro_Ponto_FK = r.id;
 END $$
 
 DELIMITER ;
@@ -143,6 +143,6 @@ END $$
 DELIMITER ;
 
 
--- drop procedure if exists listar_registros_ponto;
+ -- drop procedure if exists listar_Solicitacao;
 
 

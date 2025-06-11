@@ -112,14 +112,23 @@ public class Login  extends JFrame {
 				ResultSet rs = usuarioDao.autenticarUsuario(funcionario);
 				
 				if (rs.next()) {
+				int tipo = rs.getInt("Tipo");
 					
-		          PrincipalColaborador principalColaborador = new PrincipalColaborador();
-		          principalColaborador.setVisible(true);
-		          dispose();
-				}else {
+				if (tipo == 1) {
+					 PrincipalColaborador principalColaborador = new PrincipalColaborador();
+			          principalColaborador.setVisible(true);
+			          dispose();
+					
+				}else if (tipo == 2) {
+					 PrincipalADM principalADM = new PrincipalADM();
+			          principalADM.setVisible(true);
+			          dispose();
+				} 
+				else {
 					JOptionPane.showMessageDialog(null, "Usuário ou senha inválidos", "Erro", JOptionPane.ERROR_MESSAGE);
 				}
-			    } catch (Exception erro) {
+			    }
+				} catch (Exception erro) {
 					JOptionPane.showMessageDialog(null, "Erro ao fazer login: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
 				}
 			}

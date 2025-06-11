@@ -4,13 +4,15 @@ public class Funcionario {
 	private long CPF;
 	private String Nome;
 	private String Email;
+	private String Senha;
 	private String Setor;
 	private String Cargo;
 	
 	public Funcionario() {}
-	public Funcionario(int cpf,String nome,String email, String setor, String cargo) {
+	public Funcionario(int cpf,String nome,String email, String senha, String setor, String cargo) {
 		this.setCPF(cpf);
 		this.setEmail(email);
+		this.setSenha(senha);
 		this.setNome(nome);
 		this.setSetor(setor);
 		this.setCargo(cargo);
@@ -32,9 +34,14 @@ public class Funcionario {
 	public String getEmail() {
 		return Email;
 	}
-
 	public void setEmail(String email) {
 		Email = email;
+	}
+	public String getSenha() {
+		return Senha;
+	}
+	public void setSenha(String senha) {
+		Senha = senha;
 	}
 	public String getSetor() {
 		return this.Setor;
