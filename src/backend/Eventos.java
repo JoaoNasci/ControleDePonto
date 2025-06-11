@@ -20,7 +20,7 @@ public class Eventos extends JFrame {
     private UsuarioDAO usuarioDAO;
 
     public DefaultTableModel exibirDados() {
-        String sql = "call listar_registros_ponto();"; 
+        String sql = "call listar_ponto_funcionario(?);"; 
 
         try {
         	bd = new ConecxaoBD();
@@ -34,6 +34,56 @@ public class Eventos extends JFrame {
             }
 
             PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            
+            ResultSetMetaData meta = rs.getMetaData();
+            int colunas = meta.getColumnCount();
+
+            DefaultTableModel model = new DefaultTableModel();
+
+            
+            for (int i = 1; i <= colunas; i++) {
+                model.addColumn(meta.getColumnName(i));
+            }
+
+           
+            while (rs.next()) {
+                Object[] linha = new Object[colunas];
+                for (int i = 1; i <= colunas; i++) {
+                    linha[i - 1] = rs.getObject(i);
+                }
+                model.addRow(linha);
+            }
+
+            rs.close();
+            stmt.close();
+            bd.closeConnection();
+            return model;
+
+        } catch (SQLException e) {
+        	System.out.println("Erro ao executar a consulta: " + e.getMessage());
+            
+        	return null;
+        }
+    }
+    
+    public DefaultTableModel exibirSolicitacao(String email) {
+        String sql = "call listar_ponto_funcionario(?);"; 
+
+        try {
+        	bd = new ConecxaoBD();
+            if (!this.bd.getConnection()) {
+            	
+                System.out.println("Falha na conexão.");
+                
+            } else {
+            	bd.getConnection();
+				System.out.println("Conexão estabelecida com sucesso.");
+            }
+
+            PreparedStatement stmt = ((java.sql.Connection)bd.connection).prepareStatement(sql);
+            stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
 
             
